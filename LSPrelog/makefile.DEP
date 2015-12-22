@@ -1,0 +1,12 @@
+
+all: \
+    .\LSPrelog.dll
+
+.\LSPrelog.obj: \
+    d:\work\c\wpsac\LSPrelog\LSPrelog.c \
+    {d:\work\c\wpsac\LSPrelog;..\include;$(INCLUDE);}LSPrelog.h \
+    {d:\work\c\wpsac\LSPrelog;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\LSPrelog;..\include;$(INCLUDE);}debug.h
+
+.\PRINTF.obj: \
+    d:\work\c\wpsac\LSPrelog\PRINTF.C

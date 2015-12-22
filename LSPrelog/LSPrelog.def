@@ -1,0 +1,14 @@
+
+LIBRARY LSPrelog
+
+DESCRIPTION '@#NB:4.00.00#@ LSPrelog: LAN Server Logon'
+
+PROTMODE
+DATA MULTIPLE NONSHARED LOADONCALL
+EXPORTS
+  DoPreLogon
+  DoPreLogoff
+  DoLogon
+  DoLogoff
+
+

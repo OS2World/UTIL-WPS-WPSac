@@ -1,0 +1,110 @@
+//
+//
+//   Module Name: WPStartup2
+//
+//
+
+#ifndef wpstrtup_idl
+#define wpstrtup_idl
+
+#include "WPFolder.idl"
+#include <somcls.idl>
+
+interface M_WPStartup2;
+
+interface WPStartup2 : WPFolder
+//# Comment for parent WPObject:
+
+//---Symbol parentComment is undefined---
+
+//
+// CLASS: WPStartup2
+//
+// CLASS HIERARCHY:
+//
+//     SOMObject
+//       ¿ƒƒ WPObject
+//                ¿ƒƒ WPFileSystem
+//                         ¿ƒƒ WPFolder
+//                                ¿ƒƒ WPStartup2
+//
+
+{
+
+  BOOL isSet ();
+  BOOL markSet (in HOBJECT hObj);
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: isSet, markSet;
+
+    //# Class Modifiers
+    externalstem = wpStartup2;
+    externalprefix = wpStartup2_;
+    majorversion = 1;
+    minorversion = 1;
+    local;
+    filestem = wpstrtup;
+    metaclass = M_WPStartup2;
+    callstyle = oidl;
+
+    passthru C_ih_before =  ""
+"/* Zahl der Bit-Shifts fÅr SOM_*Level - Variable */"
+"#define SHFT_TRACE                0"
+"#define SHFT_WARN                 2"
+"#define SHFT_ASSERT               4"
+""
+"#define CLASSNAME             \"WPStartup2\""
+"#define DEFAULT_TITLE         \"Benutzer\nSystemstart\""
+"";
+
+    passthru C_h_after =  ""
+"";
+
+    //# Internal Instance Variables
+
+    //# Method Modifiers
+    wpMenuItemSelected: override;
+    wpModifyPopupMenu: override;
+    wpOpen: override;
+    wpObjectReady: override;
+
+    //# Data Modifiers
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+interface M_WPStartup2
+//# Comment for parent WPObject:
+
+{
+  HMODULE clsQueryModuleHandle ();
+
+#ifdef __SOMIDL__
+
+  implementation {
+
+    releaseorder: clsQueryModuleHandle;
+
+    //# Class Modifiers
+    functionprefix = wpStartup2M_;
+    majorversion = 1;
+    minorversion = 1;
+    local;
+    filestem = wpstrtup;
+    callstyle = oidl;
+
+    //# Method Modifiers
+    wpclsInitData: override;
+    wpclsQueryTitle: override;
+    wpclsQueryIconData: override;
+    wpclsQueryIconDataN: override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* wpstrtup_idl */
+

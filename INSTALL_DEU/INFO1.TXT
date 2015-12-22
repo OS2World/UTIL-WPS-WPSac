@@ -1,0 +1,5 @@
+WPSac enth„lt die Software fr die Administration und den Schutz der OS/2 Workplace Shell.
+
+Die folgenden Seiten fhren Sie durch die Installation von WPSac. Die READ.ME-Datei auf der Installationsdiskette enth„lt weitere Informationen. W„hlen Sie "Weiter" um die Installation zu starten oder "Abbrechen" um sie zu beenden.
+
+

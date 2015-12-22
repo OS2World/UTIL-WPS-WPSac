@@ -1,0 +1,40 @@
+# IBM Developer's Workframe/2 Make File Creation run at 10:58:59 on 10/23/94
+
+# Make File Creation run in directory:
+#   D:\WORK\IBMC\WP_PARSE;
+
+# Assumed INCLUDE environment variable path:
+#   D:\toolkt20\cplus\os2h;
+#   D:\toolkt20\c\os2h;
+#   D:\IBMCPP\INCLUDE;
+#   D:\IBMCPP\IBMCLASS;
+#   C:\MMOS2\MMTOOLKT\H;
+#   C:\MMOS2\MMTOOLKT\INC;
+#   D:\WORK\IBMC\WP_PARSE;
+
+
+INCLUDE001=.
+INCLUDE001=$(INCLUDE001);$(INCLUDE)
+
+INCLUDE000=$(INCLUDE)
+
+y.tab.OBJ:  y.tab.c  \
+#  {$(INCLUDE000)}OS2.H  \
+#  {$(INCLUDE000)}SOM.H  \
+#  {$(INCLUDE000)}WPOBJECT.H  \
+#  {$(INCLUDE000)}string.h  \
+#  {$(INCLUDE000)}stdio.h  \
+   MAKEFILE
+
+lexyy.OBJ:  lexyy.c  \
+#  {$(INCLUDE000)}stdio.h  \
+#  {$(INCLUDE000)}stdlib.h  \
+#  {$(INCLUDE000)}unistd.h  \
+   {$(INCLUDE001)}y.tab.h  \
+   MAKEFILE
+
+wp_parse.OBJ:  wp_parse.c  \
+#  {$(INCLUDE000)}stdio.h  \
+   MAKEFILE
+
+

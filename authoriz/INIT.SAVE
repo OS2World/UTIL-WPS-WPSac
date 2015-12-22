@@ -1,0 +1,39 @@
+#define INCL_DOS
+#include <os2.h>
+#include <stdio.h>
+#define ERR_BUF_LEN 100
+
+main(int argc, char *argv[], char *envp[])
+{
+    HMODULE hmAuthorize;
+    CHAR    chErrorText[ERR_BUF_LEN];
+    PFN     pfnInit;
+    APIRET  rc;
+
+    if (argc<2)
+    {
+        printf("Usage:\n");
+        return 1;
+    } /* endif */
+
+    rc = DosLoadModule(chErrorText, ERR_BUF_LEN, "BTB", &hmAuthorize);
+
+    if (rc)
+    {
+        printf("Load Problem: %s\n", chErrorText);
+        return 2;
+    } /* endif */
+
+    rc = DosQueryProcAddr(hmAuthorize, 0, "Init", &pfnInit);
+
+    if (rc)
+    {
+        printf("Query Proc Problem: %d\n", rc);
+        return 2;
+    } /* endif */
+
+    (*pfnInit) (argv[1]);
+
+    return DosFreeModule(hmAuthorize);
+}
+

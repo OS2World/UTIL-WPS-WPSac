@@ -1,0 +1,253 @@
+This is emTeX (tex386), Version 3.1415 [3c-beta12] (preloaded format=lplaing 95.4.11)  9 MAY 1998 14:56
+**&lplaing wpsac
+(wpsac.tex
+ILaTeX Version 2.09 <9 Jan 1990>
+(c:/emtex/texinput/article.sty
+Document Style `article' <16 Mar 88>, international version <17 Oct 89>.
+(c:/emtex/texinput/art12.sty)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+) (c:/emtex/texinput/a4wide.sty
+(c:/emtex/texinput/a4.sty)) (c:/emtex/texinput/german.sty
+Document Style Option `german' Version 2.3c of 28 Aug 1990
+\U@C=\count87
+\U@B=\box29
+\U@D=\dimen99
+\l@nguage=\count88
+\USenglish=\count89
+\german=\count90
+\austrian=\count91
+\french=\count92
+\english=\count93
+)
+(c:/emtex/texinput/supertab.sty
+\maxsize=\dimen100
+\actsize=\dimen101
+\twocolsize=\dimen102
+\parboxheight=\dimen103
+\addspace=\dimen104
+\midlineheight=\dimen105
+\pargcorrection=\dimen106
+\computedimens=\dimen107
+\tabparbox=\box30
+\tabularwidth=\dimen108
+) (c:/emtex/texinput/emlines2.sty)
+(c:/emtex/texinput/infconv.sty
+\@captxtlen=\box31
+\@captcalc=\dimen109
+) (d:/texsrc/opening.tex) (wpsac.aux) [0
+
+]
+(wpsac.toc)
+\tf@toc=\write3
+ [1
+
+] [2]
+Underfull \hbox (badness 5403) in paragraph at lines 125--131
+\twlrm Diese DLL-Datei ist eine SOM-Workplace-Shell-Klasse, die einen mo-dif-zi
+er-ten
+
+\hbox(8.33331+2.33331)x455.24408, glue set 3.78333
+.\twlrm D
+.\twlrm i
+.\twlrm e
+.\twlrm s
+.\twlrm e
+.etc.
+
+
+Underfull \hbox (badness 8000) in paragraph at lines 138--139
+\twlrm Die In-stal-la-tion des Pro-gramm-pa-ke-tes er-folgt mit Hilfe des REXX-
+-Scriptes
+
+\hbox(8.33331+2.33331)x455.24408, glue set 4.31003
+.\twlrm D
+.\twlrm i
+.\twlrm e
+.\glue 3.91663 plus 1.95831 minus 1.30554
+.\twlrm I
+.etc.
+
+[3]
+Underfull \hbox (badness 2735) in paragraph at lines 164--168
+[] []\twlrm Registrieren der WPS--Klasse. Dies er-folgt durch ein klei-nes Pro-
+gramm
+
+\hbox(8.33331+2.33331)x425.86938, glue set 3.01427
+.\hbox(0.0+0.0)x0.0
+.\glue 0.0
+.\hbox(5.33334+0.0)x0.0
+..\glue 0.0
+..\glue -23.49976
+..\glue -5.87494
+..\hbox(5.33334+0.0)x23.49976, glue set 23.49976fil
+...\glue 0.0 plus 1.0fil minus 1.0fil
+...\hbox(5.33334+0.0)x0.0, glue set - 6.00002fil []
+..\glue 5.87494
+.\penalty 0
+.\twlrm R
+.etc.
+
+[4] (dtorg.pic) [5] [6] [7] [8] [9] [10] [11] [12] [13] [14] [15] [16
+
+]
+Underfull \hbox (badness 1048) in paragraph at lines 536--539
+\twlrm Prozeduren zu-ge-ord-net, die im fol-gen-den \twlit Logon--Prozeduren \t
+wlrm ge-nannt wer-den.
+
+\hbox(8.33331+2.33331)x425.86938, glue set 2.18898
+.\twlrm P
+.\twlrm r
+.\twlrm o
+.\twlrm z
+.\twlrm e
+.etc.
+
+[17] [18] [19] [20] [21] [22]
+Underfull \hbox (badness 3895) in paragraph at lines 759--763
+\twlrm Die Zu-griffspro-file wer-den im Klar-text an-ge-legt und mit Hilfe des 
+Pro-gram-
+
+\hbox(8.33331+2.33331)x455.24408, glue set 3.39072
+.\twlrm D
+.\twlrm i
+.\twlrm e
+.\glue 3.91663 plus 1.95831 minus 1.30554
+.\twlrm Z
+.etc.
+
+
+Underfull \hbox (badness 3209) in paragraph at lines 759--763
+\twlrm mes \twlsl WP[]PARSE.EXE \twlrm in ein ma-schi-nen-les-ba-res For-mat um
+-ge-wan-delt, das von
+
+\hbox(8.33331+2.33331)x455.24408, glue set 3.18074
+.\twlrm m
+.\twlrm e
+.\twlrm s
+.\glue 3.91663 plus 1.95831 minus 1.30554
+.\twlsl W
+.etc.
+
+
+Underfull \vbox (badness 1107) has occurred while \output is active
+\vbox(685.71158+0.0)x455.24408, glue set 2.22995
+.\vbox(274.37099+0.0)x455.24408
+..\hbox(247.53767+0.0)x455.24408, glue set 133.72963fil
+...\hbox(0.0+0.0)x0.0
+...\hbox(247.53767+0.0)x321.51445, glue set 321.51445fil []
+...\penalty 10000
+...\glue(\parfillskip) 0.0 plus 1.0fil
+...\glue(\rightskip) 0.0
+..\write1{\@writefile{lof}{\string\contentsline\space {figure}{\string\numberli
+\ETC.}
+..\glue 10.0
+..\glue(\baselineskip) 6.16669
+..\hbox(8.33331+2.33331)x455.24408
+...\glue 0.0 plus 1.0fil
+...\hbox(8.33331+2.33331)x455.24408 []
+...\glue 0.0 plus 1.0fil
+..etc.
+.\glue 36.1667 plus 10.33334 minus 5.16667
+.\glue -36.1667 plus -10.33334 minus -5.16667
+.\glue 36.1667 plus 10.33334 minus 5.16667
+.\glue(\topskip) 1.66669
+.etc.
+
+ [23]
+Underfull \hbox (badness 1997) in paragraph at lines 764--769
+\twlrm Zwi-schen die-sen Schl[]ssel-wor-ten wer-den Flags (s. Ab-schnitt 8.3.4[
+]) auf-gez[]hlt.
+
+\hbox(9.0+3.0)x455.24408, glue set 2.7154
+.\twlrm Z
+.\twlrm w
+.\twlrm i
+.\discretionary
+..\twlrm -
+.\twlrm s
+.etc.
+
+[24]
+Underfull \hbox (badness 10000) in paragraph at lines 797--827
+
+
+\hbox(0.0+0.0)x455.24408
+.\penalty -10000
+.\glue(\rightskip) 0.0
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 797--827
+
+
+\hbox(0.0+0.0)x455.24408
+.\penalty -10000
+.\glue(\rightskip) 0.0
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 797--827
+
+
+\hbox(0.0+0.0)x455.24408
+.\penalty -10000
+.\glue(\rightskip) 0.0
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 797--827
+
+
+\hbox(0.0+0.0)x455.24408
+.\penalty -10000
+.\glue(\rightskip) 0.0
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 797--827
+
+
+\hbox(0.0+0.0)x455.24408
+.\penalty -10000
+.\glue(\rightskip) 0.0
+
+[25] [26] [27]
+Underfull \hbox (badness 10000) in paragraph at lines 963--964
+
+
+\hbox(0.0+0.0)x455.24408
+.\glue(\rightskip) 0.0
+
+[28]
+Underfull \hbox (badness 10000) in paragraph at lines 965--968
+
+
+\hbox(0.0+0.0)x396.49469
+.\glue(\rightskip) 0.0
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 973--974
+[]\twltt Erste []ffentliche Version von WPSac f[]r OS/2 2.x und OS/2 Warp
+
+\hbox(8.33331+2.66666)x398.33858
+.\hbox(0.0+0.0)x0.0
+.\twltt E
+.\twltt r
+.\twltt s
+.\twltt t
+.etc.
+
+[29] (wpsac.aux) ) 
+Here is how much of TeX's memory you used:
+ 395 strings out of 56968
+ 3751 string characters out of 225348
+ 44222 words of memory out of 262143
+ 2332 multiletter control sequences out of 10000
+ 23362 words of font info for 92 fonts, out of 81920 for 254
+ 4 hyphenation exceptions out of 607
+ 18i,14n,17p,284b,269s stack positions out of 300i,100n,60p,5000b,1000s
+
+Output written on wpsac.dvi (30 pages, 90904 bytes).

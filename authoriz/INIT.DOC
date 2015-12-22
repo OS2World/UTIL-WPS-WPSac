@@ -1,0 +1,11 @@
+INIT Program
+============
+
+This program was build for test purposes only. It is useful to show
+the kind of interface necessary to feed a SAC-file into the the
+authorize component of WPSAC. This interface is normally used by 
+"SAMMY.EXE", our login frontend, but for debugging and testing
+purpose we build that small tool.
+
+We include this file in binary (exe) form as well as in source code.
+

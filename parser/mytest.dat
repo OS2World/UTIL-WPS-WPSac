@@ -1,0 +1,13 @@
+OBJECT ( TITLE="*Arbeitsoberfl„che*" )
+NOARRANGE
+ENDOBJECT
+
+OBJECT ( TITLE = "*Gesamtbildschirm" )
+NODELETE
+NOMOVE
+ENDOBJECT
+
+OBJECT ( TITLE = "Postscript")
+NODELETE
+ENDOBJECT
+

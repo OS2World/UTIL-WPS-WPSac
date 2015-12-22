@@ -1,0 +1,36 @@
+# IBM Developer's Workframe/2 Make File Creation run at 16:39:37 on 02/19/94
+
+createpwd.obj:  createpwd.c  \
+   MAKEFILE
+
+SamMem.OBJ:  SamMem.c  \
+   {d:\work\c\wpsac\tester;..;..\include;$(INCLUDE);}SamMem.h  \
+   MAKEFILE
+
+tester.OBJ:  tester.c  \
+   {d:\work\c\wpsac\tester;..;..\include;$(INCLUDE);}samglob.h  \
+   {d:\work\c\wpsac\tester;..;..\include;$(INCLUDE);}tester.h  \
+   MAKEFILE
+
+rxout.OBJ:  rxout.c  \
+   {d:\work\c\wpsac\tester;..;..\include;$(INCLUDE);}tester.h  \
+   MAKEFILE
+
+profile.obj: profile.c \
+   {d:\work\c\wpsac\tester;..;..\include;$(INCLUDE);}tester.h  \
+   MAKEFILE
+
+loginout.OBJ:  loginout.c  \
+   {d:\work\c\wpsac\tester;..;..\include;$(INCLUDE);}magpro2.h  \
+   MAKEFILE
+
+profile.obj: profile.c \
+   {d:\work\c\wpsac\tester;..;..\include;$(INCLUDE);}magpro2.h  \
+   MAKEFILE
+
+testter.RES:  tester.rc  \
+   {$(INCLUDE)}tester.H  \
+   {$(INCLUDE)}tester.Dlg  \
+   MAKEFILE
+
+

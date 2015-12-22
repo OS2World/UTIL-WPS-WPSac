@@ -1,0 +1,34 @@
+.\WINMAN.obj: \
+    .\WINMAN.C \
+    {.;..;..\include;$(INCLUDE);}winman.h \
+    MAKEFILE
+
+.\WINPROC.obj: \
+    .\WINPROC.C \
+    {.;..;..\include;$(INCLUDE);}winman.h \
+    MAKEFILE
+
+.\REGION.obj: \
+    .\REGION.C \
+    {.;..;..\include;$(INCLUDE);}winman.h \
+    MAKEFILE
+
+.\INITOS2.obj: \
+    .\INITOS2.C \
+    {.;..;..\include;$(INCLUDE);}initdlg.h \
+    {.;..;..\include;$(INCLUDE);}initos2.h \
+    {.;..;..\include;$(INCLUDE);}winman.h \
+    MAKEFILE
+
+.\MAKEINI.obj: \
+    ..\MAKEINI.C \
+    {.;..;..\include;$(INCLUDE);}samglob.h \
+    MAKEFILE
+
+.\MAGSUPP.obj: \
+    ..\MAGSUPP.c \
+    {.;..;..\include;$(INCLUDE);}magcalls.h \
+    {.;..;..\include;$(INCLUDE);}samglob.h \
+    MAKEFILE
+
+

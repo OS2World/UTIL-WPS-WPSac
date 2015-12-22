@@ -1,0 +1,6 @@
+#include <OS2.H>
+#include "WPSacDlg.h"
+
+ICON    IDD_ICON  "wpsac.ico"
+
+

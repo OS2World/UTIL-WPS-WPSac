@@ -1,0 +1,65 @@
+RCINCLUDE Sammy.rc
+RCINCLUDE SammyUS.dlg
+
+MENU IDM_LOGIN
+    {
+    MENUITEM                "~Shutdown",            IDM_SHUTDOWN
+    MENUITEM                "~Change password",     IDM_CHGPWD,     MIS_TEXT
+    MENUITEM                "~View",                IDM_VIEW,       MIS_TEXT
+    MENUITEM                SEPARATOR
+    MENUITEM                "~Help",                IDM_HELP,       MIS_HELP
+    MENUITEM                "~About",               IDM_ABOUT,      MIS_TEXT
+    }
+
+STRINGTABLE
+    {
+    IDS_NOUSER              "Invalid expression for Desktop owner" /* Benutzername ungÅltig */
+    IDS_DESKTPNOTFOUND      "Desktop owner not found"              /* Benutzer nicht gefunden */
+    IDS_USERDESTROYED       "Desktop definitions corrupted"        /* Benutzerdaten inkonsistent */
+    IDS_SHELLNOTFOUND       "Shell not found"                      /* Angeforderte Shell nicht gefunden */
+    IDS_REGISTER            "Application not registered"           /* Programm nicht registriert */
+    IDS_NOMAINWINDOW        "Object window couldn't be established"
+    IDS_USERINCOMPL         "User data incomplete"
+    IDS_PATHTOOLONG         "Desktop name or path too long"
+    IDS_ERRCREATE           "Could not create desktop"
+    IDS_NOTMARRIED          "The system profile is not the one consorted to the desired desktop"
+    IDS_USERWITHSYSTEMINI   "Users with a private systemprofile can only be started by the InitOS2 program!"
+    IDS_NODESKINRC          "RC-Datei not usable!"
+
+    IDS_WRONGPASSWORD       "Wrong password entered!"
+    IDS_USERNOTFOUND        "User not found!"
+    IDS_DIFFERENTPWDS       "Passwords do not match!"
+
+    IDS_HELPWINDOWTITLE     "WPSac"
+    IDS_HELPLIBRARYNAME     "SAMMY.HLP"
+
+    IDS_USERPREPARE         "User profile creation in process, please wait . . ."
+    IDS_USERLOGON           "Logon in process, please wait . . ."
+    IDS_USERLOGOFF          "Logoff in process, please wait . . ."
+    IDS_PRELOGON            "Contacting server, please wait . . ."
+
+    IDS_NOINIDATABASE       "INI-file cannot be opened"
+
+    IDS_ERRUNCPATH          "Invalid network path - please correct in UPROFILE!"
+    IDS_ERRUNCDRIVEWRITE    "Cannot write to network path"
+    IDS_ERRUNCDRIVEREAD     "Cannot read from network path"
+    IDS_ERRWRITELANPROFILE  "Fault during write of changes of administration data; please inform administrator"
+
+    IDS_INVDOMAIN           "Could not find domain controller"
+    IDS_INVPATH             "Could not find network path"
+    IDS_NOPRELOGUSER        "User id  for WPSac administration data on LAN server is empty"
+    IDS_LOGON               "Error during logon on domain controller"
+    IDS_LOGOFF              "Error during logoff on domain controller"
+    IDS_NODLL               "LSPrelog-DLL not found or invalid"
+
+    IDS_LOGONTITLE          "OS/2 System Logon"
+
+    IDS_DTPATHCHANGED       "The Workplace Shell path has been (erroneously?) changed! Please inform administrator"
+
+    IDS_DEFAULTUSER         "USER"
+    IDS_DEFAULTPASSWORD     "password"
+
+    IDS_DEMOVERSION         "This is a demo version. Please think about for 10 seconds, if you want to buy the product..."
+    }
+
+

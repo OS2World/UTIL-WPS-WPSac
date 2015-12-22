@@ -1,0 +1,18 @@
+#include <OS2.H>
+#include "dlg.h"
+
+ICON    IDD_ICON    "wpstrt.ico"
+ICON    IDD_ICON2   "wpstrt2.ico"
+
+MENU ID_ABOUTBOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   MENUITEM "~Produktinformation",  IDM_ABOUTBOX
+END
+
+MENU ID_OPENDEBUG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+   MENUITEM "~DEBUG (WPStartup2)",  IDM_OPENDEBUG
+END
+
+rcinclude wpstrtup.dlg
+

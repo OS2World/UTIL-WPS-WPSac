@@ -1,0 +1,552 @@
+*********************************************************************
+*                                                                   *
+*             WPSac - Workplace shell access control                *
+*                                                                   *
+*                      Install/2 package file                       *
+*                                                                   *
+*********************************************************************
+*
+***  Components in this package file
+*
+*  ID           Name
+*  ------       -----------------------------------------
+*  INSFIRST     Create product folder, copy install files
+*  WPSAC        WPSac basic code
+*  LSSUPP       IBM LAN Server support for WPSac
+*  STARTUP      User specific startup folder for WPSac
+*  DELLAST      Delete product folder
+
+
+*---------------------------------------------------------------------
+*  Service level
+*---------------------------------------------------------------------
+SERVICELEVEL
+   LEVEL = '004000'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Success message
+*---------------------------------------------------------------------
+OPTIONS
+   SUCCESSINSMSG = 'Die Komponenten von WPSac wurden erfolgreich installiert. Sie mÅssen neu booten, um sie nutzen zu kînnen. Der erste Default-Benutzer nach der Installation hei·t "BENUTZER", sein Pa·wort ist "KENNWORT".'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Product is released on 1 diskette
+*---------------------------------------------------------------------
+*DISK
+*   NAME   = 'WPSac - Diskette 1',
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Default installation directory
+*---------------------------------------------------------------------
+PATH
+   FILE = 'C:/WPSAC',
+   FILELABEL = 'Installationsverzeichnis',
+   AUX1 = 'C:/WPSAC/LOCAL',
+   AUX1LABEL = 'lokale Konfigurationsdateien',
+   AUX2 = 'C:/WPSAC/DT',
+   AUX2LABEL = 'Pfad fÅr ArbeitsoberflÑchen'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Exit to define your product folder's object ID.
+*---------------------------------------------------------------------
+FILE
+   EXITWHEN = 'ALWAYS',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'SETVAR FOLDERID=WPSACFLDR'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Package-file description
+*---------------------------------------------------------------------
+PACKFILE
+   UNPACK = 'YES',
+   SOURCE = 'DRIVE:WPSACC.PAK',
+   ID = 'CLIENT'
+*   VOLUME   = 'WPSAC001'
+
+PACKFILE
+   UNPACK = 'YES',
+   SOURCE = 'DRIVE:WPSACS.PAK',
+   ID = 'SERVER'
+*   VOLUME   = 'WPSAC001'
+
+PACKFILE
+   UNPACK = 'YES',
+   SOURCE = 'DRIVE:WPSACT.PAK',
+   ID = 'STARTUP'
+*   VOLUME   = 'WPSAC001'
+
+PACKFILE
+   UNPACK = 'YES',
+   SOURCE = 'DRIVE:WPSACL.PAK',
+   ID = 'PRELOG'
+*   VOLUME   = 'WPSAC001'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  This component creates a folder on the desktop.
+*---------------------------------------------------------------------
+COMPONENT
+   NAME = 'INSFIRST',
+   ID = 'INSFIRST',
+   DISPLAY = 'NO',
+   SIZE = '1160000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:WPSac.ICF',
+   VOLUME = 'WPSAC001',
+   PWS = 'WPSac.ICF',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '2246'
+
+*  variable CATALOG contains name of catalog file
+*  (used in EPFISINC.PKG)
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'SETVAR CATALOG=WPSac.ICF'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:WPSac.DSC',
+   VOLUME = 'WPSAC001',
+   PWS = 'WPSac.DSC',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '439'
+
+*  Create product's folder on the desktop.
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'CREATEWPSOBJECT WPFolder "WPSac"                   <WP_DESKTOP> R                   "OBJECTID=<%FOLDERID%>;"'
+
+*  install and register the Installation Utility
+INCLUDE
+   NAME = 'DRIVE:EPFISINC.PKG'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Component for for WPSac basic code
+*  contains sammy.exe, authoriz.dll, wpsac.dll and accompanying files
+*---------------------------------------------------------------------
+COMPONENT
+   NAME = 'WPSac Basiskomponente',
+   ID = 'WPSAC',
+   REQUIRES = 'INSFIRST DELLAST COMMON',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'Basiskomponente: Login-Dialog, WPS-Klasse und Administrationsprogramm',
+   SIZE = '2410000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+*  Bei Deinstallation vor dem Lîschen zuerst die WPS-Klasse deregistrieren
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'EXEC bg tw bin//SACCLASS.EXE DEREGISTER'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:AUTHORIZ.DLL',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = 'bin/AUTHORIZ.DLL',
+   DATE = '991027',
+   TIME = '0002',
+   SIZE = '27098'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   PWSPATH = 'AUX1',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:DUMMY.DAT',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = 'DUMMY.DAT',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '58'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   PWSPATH = 'AUX1',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:DUMMY.SAC',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = 'DUMMY.SAC',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '67'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:SACCLASS.EXE',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = 'bin/SACCLASS.EXE',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '33280'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:SAMMY.EXE',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = 'bin/SAMMY.EXE',
+   DATE = '991028',
+   TIME = '0022',
+   SIZE = '115760'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:SAMMY.HLP',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = 'help/SAMMY.HLP',
+   DATE = '991018',
+   TIME = '0044',
+   SIZE = '3812'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   PWSPATH = 'AUX1',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:SCRIPT.TPL',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = 'SCRIPT.TPL',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '807'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   PWSPATH = 'PWSFILE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:WPSAC.DLL',
+   VOLUME = 'WPSAC001',
+   PACKID = 'CLIENT',
+   PWS = '%EPFIBOOTDRIVE%:/OS2/DLL/WPSAC.DLL',
+   DATE = '991018',
+   TIME = '0055',
+   SIZE = '36390'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:WPSAC.INF',
+   VOLUME = 'WPSAC001',
+   PWS = 'help/WPSAC.INF',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '211030'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:CPPOOR3U.DLL',
+   VOLUME = 'WPSAC001',
+   PACKID = 'SERVER',
+   PWS = 'bin/CPPOOR3U.DLL',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '37929'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:UPROFILE.EXE',
+   VOLUME = 'WPSAC001',
+   PACKID = 'SERVER',
+   PWS = 'bin/UPROFILE.EXE',
+   DATE = '991027',
+   TIME = '2226',
+   SIZE = '1775616'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:UPROFILE.HLP',
+   VOLUME = 'WPSAC001',
+   PACKID = 'SERVER',
+   PWS = 'help/UPROFILE.HLP',
+   DATE = '991023',
+   TIME = '1233',
+   SIZE = '36888'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:UPROFILG.HLP',
+   VOLUME = 'WPSAC001',
+   PACKID = 'SERVER',
+   PWS = 'help/UPROFILG.HLP',
+   DATE = '991023',
+   TIME = '1228',
+   SIZE = '43231'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:UPROFILG.DLL',
+   VOLUME = 'WPSAC001',
+   PACKID = 'SERVER',
+   PWS = 'bin/UPROFILG.DLL',
+   DATE = '991023',
+   TIME = '1221',
+   SIZE = '22706'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:WP_PARSE.EXE',
+   VOLUME = 'WPSAC001',
+   PACKID = 'SERVER',
+   PWS = 'bin/WP_PARSE.EXE',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '61952'
+
+*----- Config.sys aktualisieren
+ADDCONFIG
+   VAR = 'SET RUNWORKPLACE',
+   ADDSTR = '%EPFIFILEDIR%//bin//Sammy.exe',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = ' NEVER ',
+   FILESEARCHSTR = 'SET RUNWORKPLACE=%EPFIBOOTDRIVE%://OS2//PMSHELL.EXE',
+   REPLACEOCC = 'LAST'
+
+ADDCONFIG
+   VAR = 'SET RUNWORKPLACE',
+   ADDSTR = '%EPFIBOOTDRIVE%://OS2//PMSHELL.EXE',
+   ADDWHEN = 'DELETE',
+   DELETEWHEN = ' NEVER ',
+   FILESEARCHSTR = 'SET RUNWORKPLACE=%EPFIFILEDIR%//bin//Sammy.exe',
+   REPLACEOCC = 'LAST'
+
+ADDCONFIG
+   VAR = 'SET SAMWORKPLACE',
+   ADDSTR = '%EPFIBOOTDRIVE%://OS2//PMSHELL.EXE',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+UPDATECONFIG
+   VAR = 'SET HELP',
+   ADDSTR = '%EPFIFILEDIR%//help',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+UPDATECONFIG
+   VAR = 'SET PATH',
+   ADDSTR = '%EPFIFILEDIR%//bin',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+UPDATECONFIG
+   VAR = 'SET DPATH',
+   ADDSTR = '%EPFIAUX1DIR%',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+UPDATECONFIG
+   VAR = 'LIBPATH',
+   ADDSTR = '%EPFIFILEDIR%//bin',
+   ADDWHEN = 'INSTALL',
+   DELETEWHEN = 'DELETE'
+
+*----- Setup paths in os2sys.ini
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'ADDPROFILE %SYSTEM_INI% "WPSac" "UprofileINIFile" "UPROFILE.INI"'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'ADDPROFILE %SYSTEM_INI% "WPSac" "UprofileINIPath" "%EPFIAUX1DIR%"'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'ADDPROFILE %SYSTEM_INI% "WPSac" "ClientPathLocal" "%EPFIAUX1DIR%"'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'ADDPROFILE %EPFIAUX1DIR%//UPROFILE.INI "_System" "DesktopPath" "%EPFIAUX2DIR%"'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'ADDPROFILE %EPFIAUX1DIR%//UPROFILE.INI "_System" "SammyBgBitmap" "%EPFIBOOTDRIVE%://OS2//BITMAP//WARPD.BMP"'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'ADDPROFILE %EPFIAUX1DIR%//UPROFILE.INI "_Files" "Language" "UPROFILG"'
+
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'EXEC fg pm bin//uprofile.exe -e %EPFIAUX1DIR%//UPROFILE.INI -h help//UPROFILE.HLP -l:G'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'DELETEPROFILE %SYSTEM_INI% "WPSac"'
+
+*----- Add uprofile icon to product folder
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'CREATEWPSOBJECT WPProgram "WPSac^ User Administration" <%FOLDERID%> R "EXENAME=%EPFIFILEDIR%//bin//UPROFILE.EXE;OBJECTID=<%FOLDERID%UPROF>"'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT <%FOLDERID%UPROF>'
+
+*----- Add help file to product folder
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'CREATEWPSOBJECT WPProgram "WPSac^Dokumentation"  <%FOLDERID%> R "PROGTYPE=PM;EXENAME=VIEW.EXE;OBJECTID=<%FOLDERID%INF>;PARAMETERS=%EPFIFILEDIR%//help//WPSAC.INF"'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT  <%FOLDERID%INF>'
+
+*----- Registration of WPS class
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'EXEC bg tw bin//SACCLASS.EXE REPLACE'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Component for startup folder
+*  contains a user specific startup folder
+*---------------------------------------------------------------------
+COMPONENT
+   NAME = 'Systemstart-Ordner',
+   ID = 'STARTUP',
+   REQUIRES = 'INSFIRST DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'Komponente fÅr Systemstart-Ordner',
+   SIZE = '50000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+*----- Deregister WPS class
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DEREGISTERWPSCLASS WPStartup2'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   PWSPATH = 'PWSFILE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:WPSTRTUP.DLL',
+   VOLUME = 'WPSAC001',
+   PACKID = 'STARTUP',
+   PWS = '%EPFIBOOTDRIVE%:/OS2/DLL/WPSTRTUP.DLL',
+   DATE = '990613',
+   TIME = '2356',
+   SIZE = '47134'
+
+*----- Register WPS class
+FILE
+   EXITWHEN = 'INSTALL || UPDATE || RESTORE',
+   EXITIGNOREERR = 'NO',
+   EXIT = 'REGISTERWPSCLASS WPStartup2 %EPFIBOOTDRIVE%://OS2/DLL//WPSTRTUP.DLL'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Component for LAN Server support
+*---------------------------------------------------------------------
+COMPONENT
+   NAME = 'LAN Server support',
+   ID = 'LSSUPP',
+   REQUIRES = 'INSFIRST DELLAST',
+   DISPLAY = 'YES',
+   DESCRIPTION = 'IBM LAN Server UnterstÅtzung',
+   SIZE = '30000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   WHEN = 'OUTOFDATE',
+   REPLACEINUSE = 'I U D R',
+   SOURCE = 'DRIVE:LSPRELOG.DLL',
+   VOLUME = 'WPSAC001',
+   PACKID = 'PRELOG',
+   PWS = 'bin/LSPRELOG.DLL',
+   DATE = '990911',
+   TIME = '1927',
+   SIZE = '29741'
+
+
+**********************************************************************
+
+
+*---------------------------------------------------------------------
+*  Component for deleting product folder during deinstallation
+*---------------------------------------------------------------------
+COMPONENT
+   NAME = 'DELLAST',
+   ID = 'DELLAST',
+   DISPLAY = 'NO',
+   SIZE = '10000',
+   SHARED = 'NO',
+   DELETE = 'YES'
+
+FILE
+   EXITWHEN = 'DELETE',
+   EXITIGNOREERR = 'YES',
+   EXIT = 'DELETEWPSOBJECT <%FOLDERID%>'
+

@@ -1,0 +1,19 @@
+   LIBRARY AUTHORIZ
+
+   DESCRIPTION
+    '@#NB:4.00.00#@ AUTHORIZ: WPSac Authorization Control'
+
+   CODE      PRELOAD
+
+   STACKSIZE 65535
+
+   EXPORTS
+    Init        @1
+    Authorize   @2
+    TestInit    @3
+    Init2       @4
+    Lock        @5
+    Unlock      @6
+    TestInit2   @7
+
+

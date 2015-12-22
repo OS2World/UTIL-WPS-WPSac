@@ -1,0 +1,981 @@
+%format:lplaing
+
+\documentstyle[a4wide,german,supertabular,12pt,emlines2,infconv]{article}
+
+\input{opening.tex}
+\newcommand{\bsl}{$\backslash$}
+\unitlength1mm
+
+\begin{document}
+
+\begin{titlepage}
+\rule{0em}{1ex}
+\vspace{15ex}
+\begin{center}
+\begin{picture}(26.4,28)
+\put(0,28){\special{em:graph wpsac.pcx}}
+\end{picture}
+\end{center}
+
+\centerline{\Huge  WPSac \large Version 3.0}
+\centerline{der \Large Workplace Zugriffsschutz}
+\vspace{40ex}
+
+\hspace*{\fill}
+(C) {\tennb NB} {\twelvedh noller \& breining software, \rm 1995$\dots$1998}
+\hspace*{\fill}
+
+\hspace*{\fill}
+\parbox{60mm}{
+\begin{center}
+Compuserve: 100101,3201\\
+Fido--net: 2:246/1406\\
+Telefon: (49)7191--960345\\
+Fax: (49)7191--300472\\
+\end{center}}
+\hspace*{\fill}
+
+\end{titlepage}
+
+\tableofcontents
+
+\section{ACHTUNG: wichtiger Hinweis fr Warp--Benutzer} \label{BUGBUG}
+{\em Die Workplace--Shell von OS/2 Warp hat einen l„stigen Fehler:
+
+Werden die Namen der Ar\-beits\-ober\-fl„\-che inklusive ihrer Pfade ab dem Stammverzeichnis zu lang, strzt
+die Oberfl„che beim Starten ab.
+Liegen beispielsweise die Benutzer unter {\tt \bsl WPSAC\bsl BENUTZER}, so darf
+ein Benutzername in der deutschen Version maximal 10 Zeichen lang werden!
+}
+
+\section{Einleitung}
+\mbox{\sl WPSac} ist ein Zugriffsschutz fr die Workplace--Shell von OS/2.
+Es gestattet die Verwaltung durch einen Administrator, der die einzelnen Berechtigungen vergibt und
+einrichtet.
+Jeder Benutzer des Rechners kann dazu eine eigene Ar\-beits\-ober\-fl„\-che bekommen, es
+k”nnen jedoch verschiedene Oberfl„chen von mehreren Benutzern gemeinsam genutzt werden.
+
+Anwendungen fr \mbox{\sl WPSac} gibt es viele. Im einfachsten Fall kann er dazu eingesetzt werden,
+auf einem Einzelplatzsystem verschiedene Ar\-beits\-ober\-fl„\-chen fr unterschiedliche Benutzer zur Verfgung
+zu stellen. Hierzu ist h„ufig nicht ein Zugriffsschutz fr die einzelnen Objekte notwendig.
+
+Die Zugriffsberechtigungen auf die Objekte auf den jeweiligen Ar\-beits\-ober\-fl„\-chen k”nnen individuell fr
+jeden Benutzer mit Hilfe sogenannter Zugriffsprofile (s. Abschnitt \ref{UPROFPRF}) verwaltet werden.
+Eine Zusammenfassung mehrerer Benutzer zu Gruppen ist ebenfalls m”glich.
+
+Zweck der Zugriffsprofile ist es, einige Funktionen der Objekte auf den
+Ar\-beits\-ober\-fl„\-chen zu unterbinden, um ein versehentliches Zerst”ren durch einen ungebten Benutzer
+wirksam zu verhindern.
+
+Schlieálich kann in Netzwerken ein Administrator das gesamte Aussehen der Ar\-beits\-ober\-fl„\-chen von
+seinem eigenen Arbeitsplatz aus konfigurieren und ber das Netz verteilen. nderungen an den
+Oberfl„chen oder Zugriffsprofilen k”nnen auch jederzeit nachtr„glich erfolgen.
+
+Die einzelnen Benutzer-IDs k”nnen durch Kennw”rter geschtzt werden, die Kennworteingabe
+kann alternativ ber einen Magnetkartenleser bzw.
+Chipkartenleser (s. Abschnitt \ref{MAGSUPP}) erfolgen.
+
+Einige wichtige Merkmale sind:
+\begin{itemize}
+\item Ein grafisches Administrationsprogramm, durch das die Benutzer--IDs, Ar\-beits\-ober\-fl„\-chen und Zugriffsprofile
+eingerichtet werden.
+Jede Benutzer--ID kann ein Paáwort, ein Zugriffsprofil und ein Gruppenzugriffsprofil besitzen.
+\item Zugriffsprofile k”nnen alternativ ber eine Beschreibungsdatei im Klartext erstellt und mit Hilfe eines speziellen
+Compilers in ein maschinenlesbares Format konvertiert werden.
+\item Die Administration des Benutzers kann vom Administrator ber ein LAN durchgefhrt werden.
+Notwendig ist dazu nur eine installierte NETBIOS--Untersttzung oder ein Novell Server.
+\item F„llt das Netzwerk aus, ist jeder Rechner mit dem letzten Stand der Zugriffsrechte stand--alone bedienbar.
+\item Das Anmelden eines Benutzers kann gleichzeitig auch Anmeldevorg„nge fr Netzwerke oder Datenbanken
+ausl”sen (single signon feature (s. Abschnitt \ref{UPROFLOG})).
+\end{itemize}
+
+\section{Lieferumfang} \label{LUMF}
+Das gesamte Programmpaket besteht aus 5 Teilen, den Programmen \mbox{\sl SAMMY.EXE},
+\mbox{\sl UPROFILE.EXE} und \mbox{\sl WP\_PARSE.EXE},
+sowie den DLL-Dateien \mbox{\sl WPSAC.DLL} und \mbox{\sl AUTHORIZ.DLL}.
+Der folgende Abschnitt beschreibt in kurzen Worten die Funktion. Das Verst„ndnis der Funktion
+ist fr den Gebrauch von \mbox{\sl WPSac} nicht unbedingt erforderlich. Sie k”nnen daher diesen
+Abschnitt berspringen und sofort mit der Installation (s. Abschnitt \ref{INSTALL})
+oder, falls \mbox{\sl WPSac} bereits installiert ist, mit der
+Organisation der Ar\-beits\-ober\-fl„\-chen (s. Abschnitt \ref{DESKTOP}) fortfahren.
+
+\underline{UPROFILE.EXE}\\
+Dieses Programm dient der Administration von Benutzer--IDs, Ar\-beits\-ober\-fl„\-chen und Zugriffsprofilen.
+Es ist ein PM--Programm, das beim Start einen Ordner ”ffnet, in dem jeder Benutzer durch ein
+Symbol repr„sentiert wird.
+In den Einstellungen jedes Benutzers k”nnen der Name, die Zugriffsprofile, sowie
+die gewnschte Ar\-beits\-ober\-fl„\-che ausgew„hlt werden.
+
+\underline{WP\_PARSE.EXE}\\
+Dieser Compiler kann Zugriffsprofile ({\em *.sac -- Dateien}) aus einer ASCII--Be\-schrei\-bungs\-da\-tei
+erzeugen. Zugriffsprofile k”nnen auch grafisch mit Hilfe von \mbox{\sl UPROFILE.EXE} erstellt werden.
+
+\underline{SAMMY.EXE}\\
+Dieses Programm liefert den Anmeldedialog fr den Benutzer beim Start des Systems, sowie
+nach einem Abmeldevorgang.
+Zus„tzlich kann von hier aus ein Systemabschluá durchgefhrt werden, auch wenn kein
+Benutzer angemeldet ist.
+
+\underline{WPSac.DLL}\\
+Diese DLL--Datei ist eine SOM--Workplace--Shell--Klasse, die die Zugriffsrechte auf die einzelnen Objekte auf
+der Ar\-beits\-ober\-fl„\-che verwaltet.
+Eine korrekt installierte und registrierte Klasse ist erkennbar am zus„tzlichen Eintrag
+{\em Logout} im Systemmen der Ar\-beits\-ober\-fl„\-che.
+
+\underline{WPStrtup.DLL}\\
+Diese DLL-Datei ist eine SOM-Workplace-Shell-Klasse, die einen modifzierten Systemstart-Ordner bereitstellt.
+Der mit OS/2 standardm„áig ausgelieferte Systemstart-Ordner hat den Nachteil, daá die in ihm enthaltenen Objekt
+nur nach dem ersten Aufruf gestartet werden. Nach einem Logoff und erneutem Logon bleibt sein Inhalt unbercksichtigt.
+Aus diesem Grund wird dieser modifizierte Systemstart-Ordner mitgeliefert, der seine enthaltenen Objekte nach jedem 
+Logon startet.
+
+\underline{AUTHORIZ.DLL}\\
+Diese DLL--Datei erh„lt von \mbox{\sl SAMMY.EXE} die Zugriffsdateien in einer bin„ren Form
+und informiert ber eine Schnittstelle \mbox{\sl WPSac.DLL} jedes Objekt bei einem Zugriff ber
+die Rechte des Benutzers.
+
+\section{Installation} \label{INSTALL}
+Die Installation des Programmpaketes erfolgt mit Hilfe des REXX--Scriptes \mbox{\sl SACINST.CMD}.
+
+Die Installation erfolgt vollst„ndig ohne notwendigen Benutzereingriff.
+Die folgenden Informationen dienen ausschlieálich interessierten Anwendern, die sich n„her
+fr die Funktion und das Zusammenspiel der einzelnen Programmteile interessieren.
+Nach Eingabe des Bootlaufwerkes (incl. Doppelpunkt) laufen folgende Aktionen ab:
+
+\begin{itemize}
+\item Anlegen eines Verzeichnisses {\tt \bsl WPSAC}.
+\item Entpacken der Dateien
+
+  \begin{tabular}{ll}
+  \bsl os2\bsl dll\bsl wpsac.dll & Workplace--Shell Klasse \mbox{\sl WPSac}\\
+  \bsl os2\bsl dll\bsl authoriz.dll & DLL fr Rechtevergabe\\
+  \bsl os2\bsl dll\bsl wpstrtup.dll & \mbox{\sl WPSac} Systemstart Ordner\\
+  \bsl WPSac\bsl uprofile.exe & Administrationsprogramm\\
+  \bsl WPSac\bsl uprofile.hlp & Hilfedatei fr \mbox{\sl UPROFILE.EXE}\\
+  \bsl WPSac\bsl uprofilg.dll & Deutsche Texte fr \mbox{\sl UPROFILE.EXE}\\
+  \bsl WPSac\bsl wpsac.inf & Diese Online--Referenz\\
+  \bsl WPSac\bsl sammy.exe & Logon--Programm\\
+  \bsl os2\bsl help\bsl sammy.hlp & Hilfedatei fr \mbox{\sl SAMMY.EXE}\\
+  \bsl WPSac\bsl wp\_parse.exe & Parser zur Umwandlung der Zugriffsdateien\\
+  \bsl WPSac\bsl cppoor3u.dll & Wird ben”tigt fr \mbox{\sl UPROFILE.EXE}\\
+  \bsl WPSac\bsl script.tpl & Template--Datei fr REXX--Skripte\\
+  \end{tabular}
+
+\item Registrieren der WPS--Klasse. Dies erfolgt durch ein kleines Programm \mbox{\sl MAGCLASS},
+das die Klasse WPSac zuerst registriert, anschlieáend WPObject durch diese Klasse ersetzt.
+(\mbox{\sl MAGCLASS} kennt 4 Argumente. Eine Kurzanleitung erscheint bei Aufruf des Programmes
+ohne Argument.)
+\item Registrieren der WPS-Klasse \mbox{\sl WPStartup2}, die sich in der Datei \mbox{\sl WPSTRTUP.DLL} befindet. 
+\item ndern der CONFIG.SYS--Datei. Hier wird SAMMY.EXE in die RUN\-WORK\-PLACE--Um\-ge\-bungs\-va\-ri\-able eingetragen.
+Der alte Wert von RUNWORKPLACE wird in einer Variable SAMWORKPLACE abgelegt, der von \mbox{\sl SAMMY.EXE}
+ben”tigt wird.
+\item Aufruf des Programmes \mbox{\sl UPROFILE.EXE}. {\bf Wichtig:} Im Men {\em Setup} $\rightarrow$ \mbox{\em Files}
+mssen die Pfade eingetragen werden. Diese Informationen werden auch von \mbox{\sl SAMMY.EXE} bei der Suche nach
+Ar\-beits\-ober\-fl„\-chen benutzt.
+\end{itemize}
+
+Nach der Installation von \mbox{\sl WPSac} steht ein Default-Benutzer mit dem Namen und Paáwort
+{\em ROOT} zur Verfgung.
+
+\section{Deinstallation} \label{DEINST}
+Bei der Deinstallation von \mbox{\sl WPSac} sind einige Punkte zu beachten,
+wenn die Stammarbeitsoberfl„che hinterher weiterverwendet werden soll
+und kein Workplaceshell--Backup vor der Installation des Paketes
+gemacht wurde oder dieser nicht verwendet werden soll.
+Es ist wie folgt vorzugehen:
+\begin{enumerate}
+\item Mit der Installationsdiskette booten und die Datei \mbox{\sl AUTHORIZ.DLL} l”schen.
+\item Den Rechner erneut booten und einen Benutzer starten, der die Stammarbeitsoberfl„che nutzt.
+\item Alle Ordner ”ffnen und wieder schlieáen.
+\item Die Datei \mbox{\sl CONFIG.SYS} wiederherstellen (die Originaldatei wurde als {\sl CONFIG.BAK}
+abgelegt).
+\item Das Programm \mbox{\sl MAGCLASS} wie folgt aufrufen:\\
+{\tt MAGCLASS DEREGISTER}
+\item Die Klasse \mbox{\sl WPStartup2} deregistrieren. 
+\item Den Rechner neu booten und die Datei \mbox{\sl WPSAC.DLL} l”schen.
+\end{enumerate}
+
+\section{Organisation der Ar\-beits\-ober\-fl„\-chen} \label{DESKTOP}
+Zuerst ein paar Worte, die die Organisation der Ar\-beits\-ober\-fl„\-chen betreffen:
+Die Ar\-beits\-ober\-fl„\-che, die der Rechner vor der Installation des Programmpaketes verwendete,
+wird im folgenden Stammarbeitsoberfl„che (s. Abschnitt \ref{DEFS}) genannt.
+
+Weitere Ar\-beits\-ober\-fl„\-chen werden bei Bedarf von \mbox{\sl SAMMY.EXE} automatisch
+in das in \mbox{\sl UPROFILE.EXE} angegebene Verzeichnis angelegt.
+Nach Registrieren der neuen Klasse WPSac erh„lt das Systemmen jeder Ar\-beits\-ober\-fl„\-che
+einen neuen Punkt Logout.
+
+Jedem Benutzer wird (in \mbox{\sl UPROFILE.EXE}) eine Ar\-beits\-ober\-fl„\-che zugewiesen.
+Jede Ar\-beits\-ober\-fl„\-che kann von mehr als einem Benutzer benutzt werden.
+
+Zugriffsprofile (s. Abschnitt \ref{DEFS}) regeln die Berechtigungen des einzelnen Benutzers.
+Hier wird definiert, welche Aktionen er mit den Objekten durchfhren darf und welche nicht.
+Jedes Zugriffsprofil kann von mehreren Benutzern verwendet werden.
+
+Ar\-beits\-ober\-fl„\-chen und Zugriffsprofile werden von \mbox{\sl UPROFILE.EXE}
+getrennt verwaltet und sind beliebig mischbar, siehe folgendes Beispiel:
+
+\input{dtorg.pic}
+
+\section{Netzwerkuntersttzung} \label{NETWORK}
+\mbox{\sl WPSac} untersttzt die Administration von Arbeitsoberfl„chen ber
+lokale Netzwerke. Dazu muá vom benutzten Netzwerkprodukt (z. B. Novell Netware)
+zur Bootzeit des Rechners ein (zumindest lesbares) Verzeichnis auf dem Server
+zur Verfgung stehen. \mbox{\sl WPSac} versucht dann, alle fr die Konfiguration
+notwendigen Dateien auf das lokale Verzeichnis umzukopieren. Dieses Verfahren hat
+den Vorteil, daá im Falle eines Serverausfalles (oder auch bei vom Netzwerk abgeh„ngten
+Rechnern) trotzdem eine Anmeldung mit dem beim letzten Logon gltigen Administrationsstand
+m”glich ist. Die Festlegung der Pfade erfolgt im Men {\em Einstellung$\rightarrow$Dateien}
+(s. Abschnitt \ref{UPROFFILES}).
+
+\section{Benutzung von UPROFILE} \label{UPROFILE}
+Das PM--Programm \mbox{\sl UPROFILE.EXE} dient zu Verwaltung von Benutzer--IDs, Arbeits\-ober\-fl„\-chen,
+Zugriffsprofilen und Logon--Prozeduren.
+
+Das Hauptfenster zeigt einen Ordner in der Symboldarstellung, der fr jeden eingerichteten
+Benutzer ein Icon darstellt.
+
+\subsection{Einrichten von UPROFILE} \label{UPROFINST}
+Die nachfolgenden Seiten beschreiben die Konfiguration von UPROFILE, die fr dessen
+Benutzung notwendig ist. Daher sollten die Angaben der im folgenden beschriebenen Einstellungs--Dialoge
+alle eingegeben werden.
+
+\subsubsection{Starten von UPROFILE} \label{UPROFSTART}
+Wird \mbox{\sl UPROFILE.EXE} das erste Mal gestartet, fragt das System (in englisch) nach dem Pfad
+fr die zugeordnete INI--Datei. In das Eingabefeld dieser Maske muá ein vollst„ndiger Dateiname
+(Laufwerk, Pfad und Dateiname) angegeben werden.
+
+Nach Eingabe von {\em OK} erscheint das Hauptfenster (Bild \ref{pic_wnd_path}, s. Abschnitt \ref{UPROFMAIN}).
+\begin{figure}[htb]
+\begin{picture}(80,30)
+\put(0,35){\special{em:graph wnd_path.pcx}}
+\end{picture}
+\caption{Auswahl der INI--Datei} \label{pic_wnd_path}
+\end{figure}
+
+\subsubsection{Hauptfenster} \label{UPROFMAIN}
+Nach dem Start von UPROFILE erscheint das Hauptfenster in Form eines Ordners in Symboldarstellung.
+Alle Texte sind nach der Installation in englisch (Bild \ref{pic_wnd_main}a). Die Umstellung auf die deutsche
+Sprache wird auf der n„chsten Seite erkl„rt.
+Bild \ref{pic_wnd_main}b zeigt dasselbe Hauptfenster in deutscher Sprache.
+\begin{figure}[htb]
+\begin{picture}(62,45)
+\put(10,45){\special{em:graph wnd_mainus.pcx}}
+\put(0,0){a)}
+\put(85,45){\special{em:graph wnd_maingr.pcx}}
+\put(75,0){b)}
+\end{picture}
+\caption{ Hauptfenster} \label{pic_wnd_main}
+\end{figure}
+
+Bei der Erstinbetriebnahme sollten zu Beginn die Einstellungen in den Dialogfenstern
+{\em Grundeinstellungen} (s. Abschnitt \ref{UPROFOPT}) und
+{\em Dateien} (s. Abschnitt \ref{UPROFFILES}) vorgenommen werden.
+
+\subsubsection{Grundeinstellungen} \label{UPROFOPT}
+Dieses Dialogfenster (Bild \ref{pic_wnd_setup}) wird ge”ffnet ber den Menpunkt {\em Ein\-stell\-ung$\rightarrow$Grund\-ein\-stell\-ung} im
+Hauptfenster (s. Abschnitt \ref{UPROFMAIN}).
+Hier werden systemweite Einstellungen fr das Produkt \mbox{\sl WPSac} vorgenommen.
+\begin{figure}[htb]
+\begin{picture}(85,65)
+\put(0,70){\special{em:graph wnd_setup.pcx}}
+\end{picture}
+\caption{Grundeinstellungen} \label{pic_wnd_setup}
+\end{figure}
+
+Dies sind im einzelnen:
+\begin{itemize}
+\item \underline{Sprache:} Diese Auswahlkn”pfe legen die Sprache fest, in der \mbox{\sl UPROFILE} nach
+dem {\em n„chsten} Start erscheint.
+\item \underline{Erzeugung von Duplikaten:} Der Systemadministrator ist in der Lage, einer Ar\-beits\-ober\-fl„\-che
+zus„tzliche Symbole hinzuzufgen. Mit den Auswahlkn”pfen in dieser Gruppe wird festgelegt, was passiert, wenn
+ein angegebenes Symbol bereits existiert:
+  \begin{itemize}
+  \item \underline{Objekt beibehalten} ignoriert das neu angegebene Symbol.
+  \item \underline{Objekt ersetzen} l”scht das bereits existierende Objekt, bevor das neue angelegt wird.
+  \item \underline{Objekt aktualisieren} bernimmt die Einstellungen des neuen Objektes fr das alte.
+  \end{itemize}
+\item \underline{Auf Netzwerkserver warten:} Wird der {\sl Nein}--Knopf gedrckt, legt die eingestellte Zeit fest, wie lange 
+\mbox{\sl SAMMY.EXE} wartet, bis eine Verbindung zum Netzwerkserver verfgbar ist, um die WPSac-Konfigurationsdatei zu lesen. 
+Ist dies nicht innerhalb der angegebenen Zeit m”glich, wird die lokale Kopie dieser Datei (\mbox{\sl UPROFILE.INI}) verwendet. 
+\item \underline{RC--Datei fr Basisoberfl„che:} Wird eine Ar\-beits\-ober\-fl„\-che zum ersten Mal verwendet, muá
+sie zuerst generiert werden. Dies ist Aufgabe eines Programmes, das zum OS/2--Lieferumgang geh”rt:
+\mbox{\sl MAKEINI}. Dieses Programm verwendet eine sogenannte Resource--Datei (Endung {\em .rc}) als
+Eingangsdatei und erzeugt daraus eine Profildatei (Endung {\em .ini }). Standardm„áig wird hierfr
+eine Datei verwendet, die nach einer Installation von OS/2 im Verzeichnis {\em OS2} unter dem Namen
+{\em INI.RC} abgelegt wurde. Diese Datei sollte (mit vollst„ndiger Pfadangabe) in diesem Feld
+angegeben werden. Selbstverst„ndlich k”nnen sich OS/2--Profis diese Datei an eigene Anforderungen anpassen!\\
+Beispiel: {\tt C:\symbol{92}OS2\symbol{92}INI.RC}
+\end{itemize}
+
+\subsubsection{Dateien} \label{UPROFFILES}
+Dieses Dialogfenster (Bild \ref{pic_wnd_files}) wird ge”ffnet ber den Menpunkt {\em Einstellung$\rightarrow$Dateien} im
+Hauptfenster (s. Abschnitt \ref{UPROFMAIN}).
+Hier werden die Pfade fr Dateien ausgew„hlt, die fr den Betrieb von \mbox{\sl WPSac} notwendig sind.
+\begin{figure}[htb]
+\begin{picture}(80,80)
+\put(0,80){\special{em:graph wnd_files.pcx}}
+\end{picture}
+\caption{Pfadeinstellungen} \label{pic_wnd_files}
+\end{figure}
+
+Dies sind im einzelnen:
+\begin{itemize}
+\item \underline{Pfad fr Administrationszwecke:} Dieser Pfad definiert das Verzeichnis, in dem die  Administrationsdateien
+von {\em UPROFILE.EXE} abgelegt werden. Dies sind die INI-Datei, die Zugriffsprofile (s. Abschnitt \ref{DEFS}), sowie
+die Dateien zur nderungsanforderung (s. Abschnitt \ref{DEFS}).\\
+Beispiel: {\tt C:\symbol{92}WPSac}
+\item \underline{Pfad fr die Ar\-beits\-ober\-fl„\-chen:} Hier wird angegeben, in welchem Verzeichnis
+die Ar\-beits\-ober\-fl„\-chen abgelegt werden. Bei der Auswahl eines Pfades ist jedoch der bereits erw„hnte
+Fehler in der WPS (s. Abschnitt \ref{BUGBUG}) zu beachten!\\
+Beispiel: {\tt C:\symbol{92}WPSAC\symbol{92}DT}
+\item \underline{Pfad fr die lokale Ablage:} Hier wird der Pfad angegeben, in dem \mbox{\sl WPSac}
+Dateien (Zugriffsprofile, nderungsanforderungen, INI--Datei) lokal sucht.\\
+Beispiel: {\tt C:\symbol{92}WPSAC}
+\item \underline{Pfad fr Ablage auf Server:} Dieser Pfad beschreibt den Netzwerk--Pfad, in dem \mbox{\sl WPSac}
+die Dateien sucht.\\
+Beispiel: {\tt N:\symbol{92}WPSac}
+\item \underline{Standard-Pfad fr Deskman-Icons:} Dieser Pfad gibt an, auf welchem Pfad auf der Administrationsmaschine 
+\mbox{\sl DESKMAN/2} seine Icons ablegt. Dieser Pfad muá auf der lokalen Maschine NICHT existieren! \\
+Beispiel: {\tt N:\symbol{92}Devtech\symbol{92}ico}
+\end{itemize}
+
+\subsubsection{Paáwort} \label{UPROFPWD}
+Dieses Dialogfenster wird ge”ffnet ber den Menpunkt {\em Einstellung$\rightarrow$Paáwort} im Hauptfenster. 
+Hier werden systemweite Einstellungen fr das Verhalten der Paáw”rter von \mbox{\sl WPSac} vorgenommen.   
+
+Dies sind im einzelnen:
+\begin{itemize}
+\item \underline{Paáwortwechsel erzwingen:} Hier wird festgelegt, ob die Logon--Paáw”rter unbegrenzte Gltigkeit 
+besitzen, oder ob das System nach einer einstellbaren Zeit die Eingabe eines neuen Paáwortes verlangt. 
+\item \underline{Kennwort und Karte erforderlich:} Dieser Knopf legt fest, wie bei Vorhandensein eines Magnetkarten--
+bzw. Chipkartenlesers die Authentisierung funktioniert. Ist der Knopf nicht ausgew„hlt, kann das Paáwort alternativ 
+durch Tastatur oder eine ID--Karte eingegeben werden, im anderen Fall sind beide Eingabemethoden erforderlich. 
+\end{itemize}
+
+\subsection{Anlegen der Ar\-beits\-ober\-fl„\-chen} \label{UPROFWPS}
+Nach der Einrichtung von \mbox{\sl UPROFILE}, so wie im vorhergehenden Abschnitt beschrieben wurde,
+werden am sinnvollsten die Ar\-beits\-ober\-fl„\-chen definiert, da diese v”llig unabh„ngig von der Definition
+von Zugriffsprofilen, Benutzern und Logon--Prozeduren sind. Die Einrichtung von Ar\-beits\-ober\-fl„\-chen ist
+jedoch nur notwendig, wenn auáer der Stammarbeitsoberfl„che (s. Abschnitt \ref{DEFS}) weitere
+Oberfl„chen verwendet werden sollen.
+
+Das Dialogfenster zum Anlegen und L”schen von Ar\-beits\-ober\-fl„\-chen wird ge”ffnet ber den Menpunkt
+{\em Einstellung$\rightarrow$Ar\-beits\-ober\-fl„\-chen} im Hauptfenster (s. Abschnitt \ref{UPROFMAIN}), Bild~\ref{pic_ao}.
+\begin{figure}[htb]
+\begin{picture}(82,65)
+\put(0,65){\special{em:graph wnd_ao.pcx}}
+\end{picture}
+\caption{Anlegen der Ar\-beits\-ober\-fl„\-chen} \label{pic_ao}
+\end{figure}
+
+Um eine neue Ar\-beits\-ober\-fl„\-che anzulegen, wird im Feld {\em Neue Oberfl„che} ein (noch nicht
+existierender) Name eingegeben. Im Feld {\em Benutzte RC--Datei} kann der Name einer
+nderungsanforderungs--Datei (s. Abschnitt \ref{DEFS}) angegeben werden (Dateien, die
+von DESKMAN/2 (s. Abschnitt \ref{DEFS}) erzeugt wurden, haben die Endung {\em .DRC}).
+Ein Druck auf den Knopf {\em Einrichten$>>$} fgt die neue Ar\-beits\-ober\-fl„\-che der rechts danebenstehenden
+Liste zu.
+
+Beim n„chsten Start einer neu angelegten Ar\-beits\-ober\-fl„\-che wird fr diese (von \mbox{\sl SAMMY}) ein
+Unterverzeichnis in dem unter {\em Pfad fr Ar\-beits\-ober\-fl„\-chen} (s. Abschnitt \ref{UPROFFILES})
+angegebenen Pfad angelegt. Dieser enth„lt die Benutzerprofildatei ({\em OS2.INI}) und den
+Ordner der Ar\-beits\-ober\-fl„\-che.
+
+\subsection{Anlegen der Zugriffsprofile} \label{UPROFPRF}
+Zugriffsprofile legen fest, welche Aktionen ein Benutzer mit einem Symbol durchfhren darf.
+Das Dialogfenster zur Verwaltung der Zugriffsprofile erreicht man ber den Menpunkt
+{\em Einstellung$\rightarrow$Zugriffsprofile} im Hauptfenster (s. Abschnitt \ref{UPROFMAIN}).
+
+\subsubsection{Auswahldialog}
+Um ein neues Zugriffsprofil anzulegen, muá in das Eingabefeld {\em Auswahl der Zugriffsprofile}
+ein Name angegeben und der {\em Neu}--Knopf bet„tigt werden (Bild \ref{pic_wnd_prof}).
+Es erscheint der im folgenden Abschnitt beschriebene Ordner.
+\begin{figure}[htb]
+\begin{picture}(80,59)
+\put(0,59){\special{em:graph wnd_prof.pcx}}
+\end{picture}
+\caption{Auswahldialog} \label{pic_wnd_prof}
+\end{figure}
+
+\subsubsection{Anlegen der Zugriffsprofile} \label{UPROFTITLE}
+Der dargestellte Ordner (Bild \ref{pic_cont_prof}) zeigt die Detailanzeige der Liste von Objekten mit modifizierten Zugriffsrechten.
+Sie enth„lt die Spalten {\em Titel}, {\em Klasse}, {\em Typ}, {\em Default--Titel}
+und {\em Physikalischer Name}.
+\begin{figure}[htb]
+\begin{picture}(114,69)
+\put(0,69){\special{em:graph cont_prof.pcx}}
+\end{picture}
+\caption{Anlegen der Zugriffsprofile} \label{pic_cont_prof}
+\end{figure}
+Im einzelnen bedeuten diese Begriffe (s. Abschnitt \ref{TYPE}):
+\begin{description}
+\item[Titel] Bezeichnet den Titel eines Objektes. Dies ist der Text, der unter dem entsprechenden Symbol auf der
+Ar\-beits\-ober\-fl„\-che steht.
+\item[Klasse] Bezeichnet die Klasse, zu der das Objekt geh”rt. Hierzu geh”ren Klassennamen wie {\em WPProgram},
+{\em WPData} oder {\em WPFolder}. Klassennamen mssen den entsprechenden Programmierhandbchern
+entnommen werden.
+\item[Typ] Bezeichnet den im {\em TYPE}--Attribut des Objektes angegebenen String. Beispielsweise legt der
+Systemeditor Dateiobjekte mit den Typen {\em Plain Text}, {\em OS/2 Command File} und
+{\em DOS Command File} an. Weitere Typen sind beispielsweise {\em Binary Data}, {\em Bitmap} oder
+{\em Executable}. Der Typ kann bei Dateiobjekten im Einstellungs--Notizbuch auf der Seite {\em Typ}
+abgefragt werden.
+\item[Default--Titel] Der Default--Titel ist ein fest in einer Klasse vordefinierter Titel, der vom System verwendet wird, wenn
+kein anderer Titel angegeben wird. Beispielsweise ist der Default--Titel fr ein Druckersymbol
+{\em Druckerobjekt}.
+\item[Physik. Name] Der physikalische Name eines Objektes entspricht dem vollst„ndigen Pfad der zugeh”rigen Datei auf dem
+Datentr„ger.
+\end{description}
+
+Profileintr„ge k”nnen auf zwei verschiedene Arten angelegt werden:
+\begin{enumerate}
+\item Durch einen Klick mit der rechten Maustaste auf den Ordnerhintergrund erscheint ein Kontextmen mit dem
+Eintrag {\em Neu}. Dessen Auswahl ”ffnet das zugeh”rige Einstellungsnotizbuch
+(s. Abschnitt \ref{UPROFPRFSET}). Die Eingabefelder mssen dann von Hand gefllt werden.
+\item Durch Drag \& Drop eines Objektes auf den Ordner erscheint ein neuer Eintrag, dessen Felder
+{\em Titel} und {\em Physikalischer Name} bereits gefllt sind. Durch Auswahl des Menpunktes
+{\em ™ffnen} des zugeh”rigen Kontextmens erscheint das Einstellungsnotizbuch.
+\end{enumerate}
+
+\subsubsection{Editieren eines Profileintrages} \label{UPROFPRFSET}
+Die folgenden Seiten zeigen die 4 verschiedenen Seiten des Einstellungsnotizbuches eines Profileintrages.
+
+Bild \ref{pic_wnd_prf1} zeigt die Einstellungsseite fr den Objekt--Titel.
+Auf dieser Seite gibt es fr jeden der im Kapitel
+Anlegen der Zugriffsprofile (s. Abschnitt \ref{UPROFTITLE}) aufgefhrten
+Begriffe ein Eingabefeld. In diesen Feldern k”nnen auch die aus normalen Datei--Suchoperationen bekannten
+Wildcards '?' und '*' verwendet werden.
+\begin{figure}[htb]
+\begin{picture}(105,86)
+\put(0,86){\special{em:graph wnd_prf1.pcx}}
+\end{picture}
+\caption{Einstellungsseite fr den Objekttitel} \label{pic_wnd_prf1}
+\end{figure}
+
+Bild \ref{pic_wnd_prf2} zeigt die Einstellungsseite fr den Objekt--Stil. Jedes Stil--Flag
+kann einen der drei Werte {\em Beibehalten} (wird durch den Default der Workplace--Shell definiert),
+{\em Verbieten} oder {\em Erlauben} annehmen.
+Die m”glichen Flags sind in der Tabelle (s. Abschnitt \ref{FLAGS}) erl„utert.
+\begin{figure}[htb]
+\begin{picture}(105,86)
+\put(0,86){\special{em:graph wnd_prf2.pcx}}
+\end{picture}
+\caption{Einstellungsseite fr den Objektstil} \label{pic_wnd_prf2}
+\end{figure}
+
+Bild \ref{pic_wnd_prf3} zeigt die Einstellungsseite fr das Objekt--Kontext--Men.
+Die m”glichen Flags sind in der Tabelle (s. Abschnitt \ref{FLAGS}) erl„utert.
+\begin{figure}[htb]
+\begin{picture}(105,86)
+\put(0,86){\special{em:graph wnd_prf3.pcx}}
+\end{picture}
+\caption{Einstellungsseite fr das Objekt--Kontext--Men} \label{pic_wnd_prf3}
+\end{figure}
+
+Bild \ref{pic_wnd_prf4} zeigt die Einstellungsseite fr weitere Objekt--Flags.
+Die m”glichen Flags sind in der Tabelle (s. Abschnitt \ref{FLAGS}) erl„utert. In diesem Bild
+ist auch beispielhaft die Darstellung der Auswahlkn”pfe im Fall {\em Erlauben} und {\em Verbieten}
+dargestellt.
+\begin{figure}[htb]
+\begin{picture}(105,86)
+\put(0,86){\special{em:graph wnd_prf4.pcx}}
+\end{picture}
+\caption{Einstellungsseite fr weitere Objekt--Flags} \label{pic_wnd_prf4}
+\end{figure}
+
+\subsubsection{Flags fr Zugriffsprofile} \label{FLAGS}
+Nachfolgend werden die Flags der Zugriffsprofildatei beschrieben:
+{\scriptsize
+\begin{supertabular}{|l|l|l|l|} \hline
+Name & Flag & Negation & Beschreibung \\ \hline
+Erstellen & CREATEANOTHER & NOCREATEANOTHER & Objekt erstellen \\
+Kopieren & COPY & NOCOPY & Kopieren m”glich \\
+Veschieben & MOVE & NOMOVE & Verschieben m”glich \\
+Referenz erstellen & LINK & NOLINK & Referenz erstellen m”glich \\
+L”schen & DELETE & NODELETE & Objekt l”schbar \\
+Drucken & PRINT & NOPRINT & Drucken m”glich \\
+Ziehen (Drag) & DRAG & NODRAG & Ziehen m”glich \\
+Sichtbarkeit & VISIBLE & NOTVISIBLE & Objekt ist sichtbar \\
+Einstellung ”ffnen & SETTINGS & NOSETTINGS & Einstellungsseite aufrufbar \\
+Umnennen & RENAME & NORENAME & Objekt umbenennbar \\
+Doppelklick & DBLKLICK & NODBLKLICK & Objekt reagiert auf Doppelklick \\
+™ffnen & OPEN & NOOPEN & Objekt kann ge”ffnet werden \\
+Hilfe & HELP & NOHELP & Online--Hilfe aufrufbar \\
+Suchen & FIND & NOFIND & Suchprogramm ist anw„hlbar \\
+Ausw„hlen & SELECT & NOSELECT & Ausw„hlen ist m”glich \\
+Sortieren & SORT & NOSORT & Sortieren ist m”glich \\
+Anordnen & ARRANGE & NOARRANGE & Anordnen ist m”glich \\
+Fenster & WINDOW & NOWINDOW & Fensterliste aufrufbar \\
+Schlieáen & CLOSE & NOCLOSE & Objekt kann geschlossen werden. \\
+Symbolanzeige & ICONVIEW & NOICONVIEW & Symbolanzeige ist m”glich \\
+Strukturanzeige & TREEVIEW & NOTREEVIEW & Strukturanzeige ist m”glich \\
+Detailanzeige & DETAILSVIEW & NODETAILSVIEW & Detailanzeige ist m”glich \\
+Default--Icon & DEFAULTICON & NODEFAULTICON & Default--Icon ausw„hlbar \\
+Schablone & TEMPLATE & NOTEMPLATE & Objekt kann Schablone werden \\
+Programm & PROGRAM & NOPROGRAM & Programmzuordnung m”glich \\
+Palette & PALETTE & NOPALETTE & Paletteneinstellung m”glich \\
+Sperren & LOCKUP & NOLOCKUP & Sperren ist anw„hlbar \\
+Systemabschluá & SHUTDOWN & NOSHUTDOWN & Systemabschluá ist anw„hlbar \\
+Drop & ./. & ./. & Drop des Objektes ist m”glich \\
+Als Drop--Ziel & ./. & ./. & Objekt kann Drop--Ziel werden \\
+Aufnehmen & ./. & ./. & Objekt kann aufgenommen werden \\
+Ablegen & ./. & ./. & Objekt kann abgelegt werden \\
+Neu & NEW & NONEW & Neues Objekt anlegbar \\ \hline
+\end{supertabular}
+}
+
+\subsection{Anlegen der Ein--/Auslog--Prozeduren} \label{UPROFLOG}
+In einer heterogenen LAN--Umgebung ergibt sich heute oft das Problem, daá ein Benutzer
+Netzwerkresourcen ben”tigt, auf die er erst nach unterschiedlichen Logon--Prozeduren zugreifen
+kann. Um diesen Vorgang zu vereinfachen, erm”glicht \mbox{\sl WPSac}, verschiedene Ein-- und
+Auslog--Vorg„nge in Prozeduren fr jeden Benutzer zu hinterlegen ({\em Single Signon}).
+
+\mbox{\sl WPSac} benutzt fr diese Prozeduren REXX--Scripte, die
+in den Profildaten von \mbox{\sl WPSac} abgelegt werden. Um den Codierungsaufwand bei gr”áeren
+Installationen gering zu halten, wurde eine zweistufige Technik gew„hlt:
+\begin{enumerate}
+\item Jedem LAN--Produkt (oder auch lokal installierten Produkten, die einen Logon ben”tigen, wie
+z. B. die Einzelplatzversion von DB2/2) werden zwei REXX--Prozeduren zugeordnet, die im
+folgenden {\em Logon--Prozeduren} genannt werden. Hierfr sind drei Variablen definiert:
+  \begin{enumerate}
+  \item  \underline{username:} wird blicherweise fr den Benutzernamen verwendet.
+  \item  \underline{password:} enth„lt normalerweise das Paáwort.
+  \item  \underline{domain:} steht bei Multidomain--Installationen fr den Dom„nennamen, bei Novell
+beispielsweise fr den Servernamen.
+  \end{enumerate}
+\item Jeder Benutzer besitzt ein {\em Logon--Script}, das aus mehreren {\em Logon--Prozeduren} besteht.
+Es wird jeweils zwischen dem Ein-- und Auslogvorgang unterschieden.
+\end{enumerate}
+
+Das Dialogfenster zur Verwaltung dieser Logon--Prozeduren erreicht man ber den Menpunkt
+{\em Einstellung$\rightarrow$Logon--Prozeduren} im Hauptfenster (s. Abschnitt \ref{UPROFMAIN}).
+
+\subsubsection{Auswahldialog} \label{LOGDLG}
+Dieses Dialogfenster (Bild \ref{pic_wnd_log1}) dient zur Auswahl und zur Neuanlage von Logon--Prozeduren. Es sind normalerweise
+immer zwei Prozeduren zu erstellen: eine fr den Logon--, die andere fr den Logoff--Vorgang.
+Die Benennung sollte daher so erfolgen, daá die Zuordnung eindeutig ist.
+\begin{figure}[htb]
+\begin{picture}(78,58)
+\put(0,58){\special{em:graph wnd_log1.pcx}}
+\end{picture}
+\caption{Auswahldialog fr Logon--Prozeduren} \label{pic_wnd_log1}
+\end{figure}
+
+Die Anwahl des {\em Neu--} oder {\em ndern--}Knopfes ”ffnet einen Editor zur Erstellung
+der Prozeduren.
+
+\subsubsection{Prozeduren--Editor}
+Der Prozeduren--Editor ist ein einfacher Editor, vergleichbar mit dem Systemeditor. Er dient
+zur Erstellung der Logon--/Logoff--Prozeduren, die in REXX formuliert werden. Die Dateien werden
+jedoch aus Sicherheitsgrnden nicht als Befehlsdateien auf der Festplatte abgelegt, sondern
+in der INI--Datei von \mbox{\sl UPROFILE} abgelegt. (Daher ist die
+Kommentarzeile am Beginn der REXX--Datei optional.)
+
+Bild \ref{pic_wnd_log_db2} zeigt beispielhaft die Logon-- bzw. Logoff--Prozeduren
+fr eine lokale DB2/2--Installation. Fr den Logon ist die Userid und das Paáwort zu bergeben, die
+Logoff--Prozedur kommt ohne Parameter aus.
+\begin{figure}[htb]
+\begin{picture}(100,32)
+\put(0,32){\special{em:graph wnd_log_db2.pcx}}
+\put(85,32){\special{em:graph wnd_loff_db2.pcx}}
+\end{picture}
+\caption{Logon--/Logoff--Prozedur fr DB2/2} \label{pic_wnd_log_db2}
+\end{figure}
+
+Bild \ref{pic_wnd_log_ls} zeigt die Logon-- bzw. Logoff--Prozeduren fr
+eine LAN--Server Installation mit mehreren Dom„nen. Aus diesem Grund ist beim Logon
+ein Dom„nenname mit zu bergeben, fr den Fall, daá die Anmeldung nicht an der Hauptdom„ne erfolgen
+soll.
+\begin{figure}[htb]
+\begin{picture}(100,32)
+\put(0,32){\special{em:graph wnd_log_ls.pcx}}
+\put(77,32){\special{em:graph wnd_loff_ls.pcx}}
+\end{picture}
+\caption{Logon--/Logoff--Prozedur fr LAN--Server} \label{pic_wnd_log_ls}
+\end{figure}
+
+Bild \ref{pic_wnd_log_n} zeigt schlieálich ein Beispiel fr eine Logon--Prozedur
+fr Novell Netware. Es ist jedoch zu beachten, daá hier sehr unterschiedliche Logon--Programme von Seiten Novell
+existieren, die nicht alle kommandozeilenf„hig sind.
+\begin{figure}[htb]
+\begin{picture}(94,32)
+\put(0,32){\special{em:graph wnd_log_n.pcx}}
+\end{picture}
+\caption{Logon--Prozedur fr Novell Netware} \label{pic_wnd_log_n}
+\end{figure}
+
+\subsection{Paáwort--Wechsel}
+Mit Hilfe der Logon-Prozeduren l„át sich der Paáwortwechsel fr die verschiedenen Netzwerkprodukte 
+automatisieren. Hierzu gibt es einige Zusatzfunktionen als REXX-Erweiterungen: 
+\begin{itemize}
+\item {\tt SacPasswdAge()} Diese Funktion gibt das Alter des Paáwortes in Tagen zurck. Durch einen einfachen 
+Vergleich l„át sich berprfen, ob das Alter eine bestimmte Anzahl von Tagen berschritten hat. 
+\item {\tt SacCreatePwd([<pwdlen>[, <alpha>[, <num>]]])} Diese Funktion generiert ein neues Paáwort. Wird kein 
+Argument angegeben, besteht das Paáwort aus 6 alphanumerischen Zeichen. Diese Paáwortl„nge l„át sich 
+durch das erste, optionale Argument einstellen. Der zweite Parameter gibt an, wieviele der Zeichen 
+mindestens Buchstaben sein mssen, der dritte gibt die Mindestzahl der Ziffern an. So erzeugt\\
+{\tt newpwd = SacCreatePwd(8, 3, 2)}\\
+ein Paáwort mit einer L„nge von 8 Zeichen, das mindestens 3 Buchstaben und 2 Ziffern enth„lt. 
+\item {\tt SacConfirmPwd()} Diese Funktion best„tigt WPSac, daá der Paáwortwechsel im entsprechenden 
+Netzwerkprodukt erfolgreich vollzogen wurde und daá sich WPSac daher das alte Paáwort nicht mehr 
+merken muá. 
+\end{itemize}    
+
+Die Strategie eines Paáwortwechsels ist folgende: 
+\begin{enumerate}
+\item WPSac loggt sich im entsprechenden Netzwerkprodukt ein. 
+\item WPSac bestimmt das Alter des aktuellen Paáwortes. Ist die Nutzungsdauer nicht berschritten, ist die 
+Logon-Aktion beendet. 
+\item Im anderen Fall wird ein neues Paáwort bestimmt. 
+\item Das alte Paáwort wird im Netzwerkprodukt durch das neue ersetzt. Die entsprechende Syntax h„ngt von 
+der verwendeten Netzwerksoftware ab und ist im entsprechenden Benutzerhandbuch nachzulesen. 
+\item Ist der Paáwortwechsel erfolgreich gewesen, wird das neue Paáwort best„tigt. Sammy kann damit das alte 
+Paáwort entfernen. Vor dieser Best„tigung wird Sammy immer versuchen, beim Logon das alte Paáwort zu 
+verwenden. 
+\end{enumerate}
+
+Beispiel: 
+\begin{verbatim}
+'logon 'username password
+if SacPasswdAge() > 60 then
+do
+  newpassword = SacCreatePwd(8,6)
+  'setpassword ' password newpassword
+  if rc=0 then
+    SacConfirmPwd()
+end
+\end{verbatim}
+
+\subsection{Anlegen der Benutzer}
+Die Benutzer--ID dient der Identifikation und Authentifizierung eines Benutzers im System.
+Innerhalb der Konfiguration einer solchen ID mssen daher alle Angaben zu Benutzername,
+Paáwort, dem Zugriffsprofil, der Ar\-beits\-ober\-fl„\-che sowie einer eventuellen Anmeldung an
+einem LAN oder einer Datenbank gemacht werden.
+
+Um einen neuen Benutzer anzulegen, muá im Hauptfenster der Menpunkt
+{\em Benutzer} $\rightarrow$ {\em Neu} ausgew„hlt oder auf den Ordnerhintergrund mit der
+rechten Maustaste geklickt werden.
+
+\subsubsection{User--ID und Paáwort}
+Diese Seite des Einstellungsnotizbuches (Bild \ref{pic_wnd_user1}) beschreibt die Logon--Daten eines Benutzers. Dazu
+geh”ren der Benutzername, das dazugeh”rige Paáwort sowie die Information, ob eine Identifikationskarte
+fr den Einlogvorgang verwendet werden kann.
+\begin{figure}[htb]
+\begin{picture}(108,83)
+\put(0,83){\special{em:graph wnd_user1.pcx}}
+\end{picture}
+\caption{1. Einstellungsseite aus dem Benutzer--Notizbuch} \label{pic_wnd_user1}
+\end{figure}
+
+Ist keine MAGCALLS.DLL (s. Abschnitt \ref{MAGSUPP}) kompatible Schnittstelle vorhanden,
+ist von den drei Auswahlkn”pfen nur der Knopf {\em Keine} aktiv.
+Mit vorhandener Kartenuntersttzung gibt es folgende Auswahlm”glichkeiten:
+\begin{itemize}
+\item Der Knopf {\em Keine} besagt, daá keine Kartendaten mit abgespeichert werden sollen.
+\item {\em Neu} bernimmt die Daten einer neu durchgezogenen Karte in die Benutzerdaten.
+\item {\em Behalten} bedeutet, daá die aktuell gespeicherten Daten beibehalten werden sollen.
+\end{itemize}
+
+
+\subsubsection{Zugriffsprofile}
+Auf dieser Einstellungsseite (Bild \ref{pic_wnd_user2}) wird das zum Benutzer geh”rige
+Zugriffsprofil (s. Abschnitt \ref{DEFS}) ausgew„hlt, das die Aktionen festlegt,
+die der Benutzer auf seiner Ar\-beits\-ober\-fl„\-che benutzen darf. Zwei dieser Profile k”nnen
+hier angegeben werden:
+\begin{figure}[htb]
+\begin{picture}(113,87)
+\put(0,87){\special{em:graph wnd_user2.pcx}}
+\end{picture}
+\caption{2. Einstellungsseite aus dem Benutzer--Notizbuch} \label{pic_wnd_user2}
+\end{figure}
+\begin{enumerate}
+\item Das Benutzer--Profil ist ein Profil, das zu einem spezifischen Benutzer geh”rt.
+\item Weiterhin k”nnen die Benutzer in verschiedene Gruppen aufgeteilt werden,
+wobei jede dieser Gruppen durch ein Gruppen--Profil repr„sentiert wird.
+\end{enumerate}
+Bei widersprchlichen Angaben in den beiden Profilen hat das Benutzer--Profil die h”here
+Priorit„t.
+
+\subsubsection{Ar\-beits\-ober\-fl„\-che}
+Die dritte Einstellungsseite (Bild \ref{pic_wnd_user3}) im Einstellungsnotizbuch des Benutzers dient der Auswahl
+der Ar\-beits\-ober\-fl„\-che (s. Abschnitt \ref{DEFS}).
+Dies erfolgt durch Selektieren einer der aufgelisteten Zeilen.
+\begin{figure}[htb]
+\begin{picture}(113,87)
+\put(0,87){\special{em:graph wnd_user3.pcx}}
+\end{picture}
+\caption{3. Einstellungsseite aus dem Benutzer--Notizbuch} \label{pic_wnd_user3}
+\end{figure}
+
+\subsubsection{Login}
+Diese Einstellungsseite (Bild \ref{pic_wnd_user4}) dient der Angabe der fr den Benutzer gltigen Ein--/Auslog--Prozeduren.
+Jedes hier angegebene Skript definiert sowohl den Ein-- wie auch den Auslog--Prozeá zu einem spezifischen
+LAN--Produkt. Es k”nnen beliebig viele solcher Skripte angegeben werden.
+Diese Einstellungsseite besitzt 3 verschiedene Aktionen:
+\begin{figure}[htb]
+\begin{picture}(113,87)
+\put(0,87){\special{em:graph wnd_user4.pcx}}
+\end{picture}
+\caption{4. Einstellungsseite aus dem Benutzer--Notizbuch} \label{pic_wnd_user4}
+\end{figure}
+\begin{itemize}
+\item {\em Neu} legt ein neues Skript unter dem Namen an, der in der nebenstehenden
+Combobox eingegeben wurde.
+\item {\em ndern} erlaubt eine nderung der Parameter eines bereits erstellten Skriptes, wie z. B.
+die User--ID oder das Paáwort zu einem LAN--Produkt oder auch die Auswahl anderer
+Prozeduren (s. Abschnitt \ref{LOGDLG}).
+\item {\em L”schen} l”scht das ausgew„hlte Logon--Skript aus der Liste.
+\end{itemize}
+
+\subsubsection{Festlegen der Login--Parameter}
+Dieser Dialog (Bild \ref{pic_wnd_lslog}) legt die Parameter fest, die fr einen Logon (bzw. Logoff) in einem LAN--Produkt
+notwendig sind. Die erste Gruppe beinhaltet den Benutzernamen (entspricht der Variablen
+{\tt username}), das Paáwort (entspricht der Variablen
+{\tt password}) sowie die Dom„ne (entspricht der Variablen
+{\tt domain}).
+\begin{figure}[htb]
+\begin{picture}(116,103)
+\put(0,103){\special{em:graph wnd_lslog.pcx}}
+\end{picture}
+\caption{Einstelldialog fr Logon--Parameter} \label{pic_wnd_lslog}
+\end{figure}
+Es ist zu beachten, daá die Werte in diesen Eingabefeldern lediglich in die entsprechenden REXX--Variablen
+kopiert werden und daher notfalls auch fr andere Zwecke verwendet werden drfen, wenn dies
+ein spezieller Logon--Vorgang erfordern sollte.
+
+Die zweite Gruppe {\em Prozeduren} legt fest, welche Logon-- bzw. Logoff--Prozedur verwendet werden soll.
+Diese Prozeduren mssen daher bereits vorher eingegeben werden (siehe
+Logon--Prozeduren (s. Abschnitt \ref{UPROFLOG}) im Hauptmen).
+
+\section{Benutzung von WP\_PARSE} \label{WPPARSE}
+Zugriffsprofile k”nnen auf 2 verschiedene Arten angelegt werden. Die
+erste Methode (s. Abschnitt \ref{UPROFPRF}) wurde bereits
+im vorhergehenden Kapitel gezeigt: das Anlegen mit graphischen Hilfsmitteln im Programm UPROFILE.
+
+Es gibt jedoch F„lle, in denen es einfacher ist, solche Zugriffsprofile als ASCII--Dateien mit
+Hilfe eines einfachen Texteditors zu erstellen. Fr diesen Anwendungszweck wurde das Programm
+{\sl WP\_PARSE} geschaffen.
+
+\subsection{Anlegen der Zugriffsprofile}
+Die Zugriffsprofile werden im Klartext angelegt und mit Hilfe des Programmes {\sl WP\_PARSE.EXE}
+in ein maschinenlesbares Format umgewandelt, das von \mbox{\sl AUTHORIZE.DLL} benutzt werden kann.
+Grunds„tzlich gibt es 2 Profiltypen: Benutzerprofile sind benutzerspezifisch (ein Profil kann jedoch auch fr mehrere
+Benutzer verwendet werden), Gruppenprofile gelten fr eine ganze Gruppe von Benutzern.
+
+Grunds„tzlich sind die Dateien eine Sammlung von Objektbeschreibungen.
+Jede Objektbeschreibung beginnt mit {\tt OBJECT (<type>='<string>')}.
+und endet mit {\tt ENDOBJECT}.
+Zwischen diesen Schlsselworten werden Flags (s. Abschnitt \ref{FLAGS}) aufgez„hlt.
+{\tt (<type>='<string>')} (s. Abschnitt \ref{TYPE}) bezeichnet das angesprochene Objekt.
+
+Damit lautet die vollst„ndige Syntax:
+\begin{verbatim}
+OBJECT (<type>='<string>')
+<flag>
+[<flag>]*
+ENDOBJECT
+\end{verbatim}
+Das Beispiel (s. Abschnitt \ref{BEISPIEL}) zeigt das Aussehen einer solchen Profildatei.
+Diese werden mit Hilfe von {\sl WP\_PARSE} compiliert:
+{\tt WP\_PARSE <infile>}.
+Die Ausgabedatei erh„lt bei gleichem Grundnamen die Endung \mbox{\sl .SAC}.
+
+\subsubsection{Objekttyp} \label{TYPE}
+Nachfolgend werden alle zul„ssigen Objekttypen beschrieben. In den Namen sind Wildcards '*' und '?'
+zul„ssig.
+
+\begin{tabular}{|l|l|l|} \hline
+Typ & Beschreibung & Beispiel \\ \hline
+CLASS & Klassenname & CLASS='WPProgram' \\
+TITLE & Objekttitle & TITLE='*Gesamtbildschirm' \\
+TYPE & Objekttyp & TYPE='Plain Text' \\
+DEFTITLE & Default--Titel & DEFTITLE='Druckerobjekt' \\
+PHYSNAME & Physikalischer Name & PHYSNAME='config.sys'  \\ \hline
+\end{tabular}
+
+\subsubsection{Beispiel} \label{BEISPIEL}
+{\tt
+OBJECT ( TITLE="*Ar\-beits\-ober\-fl„\-che*" )\\
+NOARRANGE\\
+ENDOBJECT\\
+\\
+OBJECT ( TITLE = "*Gesamtbildschirm" )\\
+NODELETE\\
+NOMOVE\\
+ENDOBJECT\\
+\\
+OBJECT ( TITLE = "Postscript")\\
+NODELETE\\
+ENDOBJECT\\
+\\
+OBJECT (TITLE = "*ditor")\\
+NODELETE\\
+NOMOVE\\
+NOCOPY\\
+ENDOBJECT\\
+\\
+OBJECT (CLASS = "WPFolder")\\
+NOSETTINGS\\
+ENDOBJECT\\
+\\
+OBJECT (TITLE = "Lauf*")\\
+NOCLOSE\\
+MOVE\\
+NORENAME\\
+NOSETTINGS\\
+ENDOBJECT
+}
+
+\section{Benutzung von SAMMY} \label{SAMMY}
+Das PM-Programm \mbox{\sl SAMMY.EXE} liefert den Einlog--Dialog fr den Benutzer. Es wird nach dem PM vom System 
+geladen und ist fr den Start der individuellen Arbeits\-ober\-fl„\-che zust„ndig.   
+
+Die Bedienung des Programmes ist sehr einfach. Es hat auf dem Hauptfenster 2 Eingabezeilen, in die der 
+Benutzer seine User--ID und das Paáwort einzutragen hat. Sind die Angaben korrekt, wird nach Bet„tigen der 
+Enter--Taste die Arbeits\-ober\-fl„che gestartet, zugeordnete Logon-Prozeduren gestartet und die Zugriffsprofile 
+geladen.   
+
+Das Optionenmen (erreichbar ber den Knopf Optionen) bietet darber hinaus noch folgende M”glichkeiten: 
+\begin{itemize}
+\item \underline{Systemabschluá:} Hier kann ein Systemabschluá ausgel”st werden, ohne daá eine Arbeitsoberfl„che vorher 
+gestartet werden muá. 
+\item \underline{Kennwort „ndern:} Hier kann das Paáwort eines Benutzers ge„ndert werden, ohne daá \mbox{sl UPROFILE.EXE} 
+aufgerufen werden muá. Dieser Dialog wird auch automatisch gestartet, wenn der Gltigkeitszeitraum eines Paáwortes abgelaufen ist. 
+\item \underline{Hintergrundfarbe:} Hier kann die Hintergrundfarbe des SAMMY-Hauptfensters eingestellt werden. 
+\end{itemize}    
+
+\section{Benutzung der Systemstart--Ordner} \label{SYSSTART}
+OS/2 bietet standardm„áig einen Systemstart-Ordner an. Dieser startet jedoch die ihm zugeordneten Objekte nur 
+einmal pro Systemstart und nicht, wie fr manche Programme gefordert, einmal pro Benutzer--Logon. Aus diesem 
+Grund wird mit \mbox{\sl WPSac} ein eigener Benutzer--Systemstart--Ordner mitgeliefert. Dieser startet die ihm zugeordneten 
+Objekte nach jedem Logon.  Folgende Hinweise sind bei der Benutzung dieses Ordners zu beachten: 
+\begin{itemize}
+\item Dieser Ordnertyp besitzt eine eigene Schablone im Schablonenordner. Daher kann er durch Ziehen einer 
+Schablone von dort beliebig dupliziert werden. Das heiát, jeder Benutzer kann mehrere 
+Benutzer-Systemstart-Ordner besitzen. Diese werden nach einem Logon in einer beliebigen Reihenfolge gestartet. 
+\item WPSac untersttzt verwaltungstechnisch nur maximal 10 solcher Ordner pro Benutzer. Die Schablone im 
+Schablonenordner z„hlt dazu. Jeder weitere Benutzer-Systemstart--Ordner kann beim Starten der Objekte 
+nicht bercksichtigt werden. Der Grund dafr liegt darin, daá Sammy diese Ordner berwacht, damit nach 
+einem Absturz der Arbeitsoberfl„che und deren Neustart die Benutzer--Systemstart-Ordner nicht noch einmal 
+gestartet werden. 
+\end{itemize}    
+
+\section{Generieren der Ar\-beits\-ober\-fl„\-chen}
+Ar\-beits\-ober\-fl„\-chen werden mit Hilfe des Programmes \mbox{\sl UPROFILE.EXE} erzeugt und verwaltet.
+Sie werden dort ber das Men
+{\em Einstellung $\rightarrow$ Ar\-beits\-ober\-fl„\-chen} (s. Abschnitt \ref{UPROFWPS}) angelegt.
+
+Die Ar\-beits\-ober\-fl„\-chen werden bei ihrer ersten Benutzung von \mbox{\sl SAMMY.EXE} automatisch generiert.
+Dieser Vorgang entspricht dem Anlegen einer Oberfl„che beim ersten Systemstart nach der Installation von OS/2.
+Wurde zur Generierung die Resource--Datei {\tt INI.RC} verwendet,
+entspricht das Aussehen der neuen Oberfl„che auch diesem Grundzustand.
+
+\section{Benutzeridentifikation durch Id-Karte} \label{MAGSUPP}
+Die Kennworteingaben des Systems k”nnen alternativ ber einen Id--Kartenleser (z. B. Magnet--
+oder Chipkartenleser) erfolgen. Voraussetzung ist das Vorhandensein einer DLL--Datei {\em MAGCALLS.DLL}.
+Diese geh”rt zum Lieferumfang der OS/2--Untersttzung der Kartenleser.
+Getestet wurden die Ger„te der Firmen IBM (4717) und DESKO (MSL4717--x).
+Geeignet sind alle Magnetkarten, bei denen die Spur 2 beschrieben ist.
+Hierfr k”nnen spezielle Karten der Firma DESKO verwendet werden, es reicht jedoch
+jede handelsbliche Karte, wie EC--Karte oder eine Kreditkarte.
+Werden andere Karten (wie Kantinenkarten o. „.) eingesetzt, ist sicherzustellen, daá der Inhalt
+von Spur 2 nie ver„ndert wird.
+In den Systemeinstellungen von \mbox{\sl WPSac} kann gew„hlt werden, ob
+\begin{enumerate}
+\item die Paáworteingabe alternativ ber Tastatur ODER Karte erfolgen kann, oder
+\item das Paáwort ber Tastatur UND Karte eingegeben werden muá.
+\end{enumerate}
+Id-Kartenzuordnungen zu bestimmten Benutzern k”nnen aus Sicherheitsgrnden nicht im Optionen--Men
+des Programmes \mbox{\sl SAMMY.EXE} vorgenommen werden. Dies muá in \mbox{\sl UPROFILE.EXE}
+geschehen.
+
+\section{Begriffe} \label{DEFS}
+\underline{Benutzer} \\
+Ein {\em Benutzer} besitzt fr einen PC oder mehreren PCs in einem Netzwerk eine
+{\em Benutzer--ID} und optional ein Paáwort. Die Verwendung von Identifikationskarten
+(Magnet-- oder Chipkarten) kann die Paáworteingabe ersetzen oder als zus„tzliche Sicherheit
+erg„nzen. Im ersten Fall ist die Eingabe der Benutzer--ID optional. Eine {\em Benutzer--ID}
+ist damit im Normalfall immer an eine {\em Person} gebunden.
+
+\underline{Ar\-beits\-ober\-fl„\-che} \\
+Eine {\em Ar\-beits\-ober\-fl„\-che} repr„sentiert das Erscheinungsbild der gesamten
+objektorientierten Benutzeroberfl„che. Die Administration des Aussehens von Ar\-beits\-ober\-fl„\-chen
+kann nach ergonomischen oder Design--Gesichtspunkten erfolgen und ist stark abh„ngig vom Einsatzort
+des Systems.
+Gebten Benutzern kann die selbst„ndige Anordnung bzw. die Reorganisation des Administratorvorschlages
+erlaubt werden.
+Es muá darauf hingewiesen werden, daá ein vollst„ndiges Entfernen aller nicht ben”tigten Objekte von
+der Ar\-beits\-ober\-fl„\-che nocht nicht fr einen hundertprozentigen Schutz des Systems ausreicht, da viele
+Programme in ihren Mens Ausstiegsm”glichkeiten auf die Kommandozeile besitzen. Solche Gesichtspunkte
+sind bei der Definition eines Sicherheitskonzeptes zu bedenken.
+
+\underline{Objekte} \\
+Die Objekte der objektorientierten Ar\-beits\-ober\-fl„\-che(n) von OS/2 werden durch Bildsymbole (Icons)
+repr„sentiert. Jedes dieser Objekte kann mehrere Aktivit„ten ausl”schen. Ein Klick mit der rechten
+Maustaste ”ffnet das {\em Kontextmen} eines Objektes. Dessen erster Menpunkt ist die
+Aktion {\em ™ffnen}. Die Aktivit„ten beim ™ffnen einen Objektes h„ngen vom Typ des Objektes ab.
+Ein {\em Ordner} zeigt in einem Fenster seinen Inhalt in einer von 3 verschiedenen Darstellungsformen,
+Programmobjekte werden standardm„áig gestartet.
+Eine weitere wichtige Aktion ist das ™ffnen des {\em Einstellungsnotizbuches} des Objektes. Hier k”nnen
+bestimmte Eigenschaften des Objektes eingestellt werden.
+Darber hinaus existieren weitere Aktionen, wie z. B. das Kopieren des Objektes, das Erstellen eines neuen
+Objektes, das Verschieben des Objektes oder das Erstellen einer Referenz.
+
+\underline{Zugriffsprofile} \\
+Aktionen, die fr die einzelnen Objekte einer Ar\-beits\-ober\-fl„\-che m”glich sind, sind bei
+Fehlbedienungen stets die Ursache fr zerst”rte Umgebungen (von mutwilliger Zerst”rung ganz zu schweigen).
+Daher ist es die Aufgabe eines geeigneten Sicherheitskonzeptes, einzelnen Benutzern nur die Aktionen
+von Objekten zu erlauben, die fr seine Arbeit notwendig sind. Diese Aktionen sind im Extremfall fr
+jedes Objekt der Ar\-beits\-ober\-fl„\-che einzeln zu definieren, Sammelbegriffe erleichtern das Zusammenfassen
+von Objektgruppen. Die Verwaltung solcher Zugriffsm”glichkeiten auf Objekte wird ber Listen,
+sogenannte {\em Zugriffsprofile} geregelt, die der Systemadministrator zu erstellen hat.
+
+\underline{nderungsanforderungen} \\
+Im Normalfall werden alle Ar\-beits\-ober\-fl„\-chen aus einer Resourcedatei, blicherweise
+die Datei {\em INI.RC} generiert. Abweichungen von dieser Ar\-beits\-ober\-fl„\-che werden in einer
+Datei beschrieben, deren Format--Syntax eine Untermenge von {\em INI.RC} ist.
+Sie wird als {\em nderungsanforderung} bezeichnet. Auf eine Ar\-beits\-ober\-fl„\-che k”nnen nacheinander
+beliebig viele nderungsanforderungen angewandt werden. Dadurch hat ein Administrator die M”glichkeit,
+mehrmals nderungen an einer Ar\-beits\-ober\-fl„\-che im Laufe deren Lebenszyklus vorzunehmen.
+Diese nderungsanforderungen werden mit Hilfe des Programmpaketes
+DESKMAN/2 \footnote{\mbox{\sl DESKMAN/2} unterliegt dem Copyright der Firma {\em Development Technologies, Inc.}
+und teilweise {\em Gregory Czajy}.} erzeugt und erhalten die Dateiendung {\em .drc}.
+DESKMAN/2 geh”rt nicht zum Lieferumfang von \mbox{\sl WPSac}.
+
+{\em Benutzer--IDs}, {\em Ar\-beits\-ober\-fl„\-chen} und {\em Zugriffsprofile} sind
+bei \mbox{\sl WPSac} im wesentlichen unabh„ngig voneinander. Das heiát, einem Benutzer wird unabh„ngig
+voneinander eine Ar\-beits\-ober\-fl„\-che und ein Zugriffsprofil zugewiesen, die wiederum mehrfach, das heiát
+auch fr andere Benutzer, verwendet werden k”nnen.
+
+\underline{Stammarbeitsoberfl„che}
+Die Ar\-beits\-ober\-fl„\-che, die vor der Installation von \mbox{\sl WPSac} aktiv war, wird als
+{\em Stammarbeitsoberfl„che} bezeichnet. Sie kann bei der Auswahl von Ar\-beits\-ober\-fl„\-chen mit dem
+Wort {\em root} ausgew„hlt werden. Die Stammarbeitsoberfl„che wird normalerweise repr„sentiert durch das
+Verzeichnis {\tt Ar\-beits\-ober\-fl„\-che} im Stammverzeichnis
+des Bootlaufwerkes. Die zugeh”rigen Profildateien
+{\tt OS2.INI} und {\tt OS2SYS.INI} befinden sich im {\tt \symbol{92}OS2}--Verzeichnis.
+
+\section{Updates}
+Updates fr das Programm sind grunds„tzlich kostenlos. Sie k”nnen ber unsere Mailbox
+(Tel.: 07191/300472) bezogen werden.
+Ein Versand per Diskette ist ebenfalls m”glich.
+Bitte legen Sie Ihrem Anforderungsschreiben DM 5.-- bei.
+
+Die Anfrage bitte richten an:\\
+\begin{quote}
+  noller \& breining software \\
+  Lauffener Str. 4 \\
+  D--71522 Backnang \\
+\end{quote}
+
+\section{Versionen}
+{\tt
+\begin{tabular}{lp{14cm}}
+1.0 & Erste ”ffentliche Version von WPSac fr OS/2 2.x und OS/2 Warp 3.0\\
+2.0 & Grafische Administration mit UPROFILE\\
+3.0 & Erstellung der Zugriffsprofile mit UPROFILE\\
+4.0  Untersttzung von IBM LAN-Server, Erweiterung von SAMMY, Untersttzung von OS/2 Warp 4.0\\
+\end{tabular}
+}
+
+\end{document}
+

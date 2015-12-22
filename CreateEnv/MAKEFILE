@@ -1,0 +1,30 @@
+# Created by IBM WorkFrame/2 MakeMake at 19:16:46 on 12/28/94
+#
+# The actions included in this makefile are:
+#   COMPILE::CLC C
+#   LINK::LINK386: LINK
+
+.all: \
+  .\createenv.EXE
+
+.SUFFIXES:
+
+.SUFFIXES: .C
+
+.C.obj:
+      @echo WF::COMPILE::CLC C
+      icc.exe /Ss /Q /Wextparproretuse /Ti /G4 /C   %s
+
+.\createenv.EXE: \
+    .\createenv.obj \
+    makefile
+      @echo Link::Linker
+      icc.exe @<<
+         /B"$(LDB) /PM:VIO /NOL"
+         /Fecreateenv.exe
+        .\createenv.obj
+<<
+
+
+!include makefile.Dep
+

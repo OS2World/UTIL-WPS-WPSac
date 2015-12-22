@@ -1,0 +1,5 @@
+.\SACCLASS.obj: \
+    SACCLASS.C \
+    makefile
+
+

@@ -1,0 +1,16 @@
+wpsac.dll    /h:\OS2\dll\wpsac.dll
+wpstrtup.dll /h:\OS2\dll\wpstrtup.dll
+authoriz.dll /h:\OS2\dll\authoriz.dll
+cppoor3u.dll /h:\WPSac\cppoor3u.dll
+uprofile.exe /h:\WPSac\uprofile.exe
+uprofile.hlp /h:\WPSac\uprofile.hlp
+uprofilg.dll /h:\WPSac\uprofilg.dll
+script.tpl   /h:\WPSac\script.tpl
+wpsac.inf    /h:\WPSac\wpsac.inf
+sammy.exe    /h:\WPSac\sammy.exe
+sammy.hlp    /h:\WPSac\help\sammy.hlp
+wp_parse.exe /h:\WPSac\wp_parse.exe
+dummy.dat    /h:\WPSac\dummy.dat
+dummy.sac    /h:\WPSac\dummy.sac
+magclass.exe /h:\WPSac\magclass.exe
+

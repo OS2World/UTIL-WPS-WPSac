@@ -1,0 +1,66 @@
+RCINCLUDE Sammy.rc
+RCINCLUDE SammyGR.dlg
+
+MENU IDM_LOGIN
+    {
+    MENUITEM                "~Systemabschlu·",      IDM_SHUTDOWN
+    MENUITEM                "~Kennwort Ñndern",     IDM_CHGPWD,     MIS_TEXT
+    MENUITEM                "~Ansicht",             IDM_VIEW,       MIS_TEXT
+    MENUITEM                SEPARATOR
+    MENUITEM                "~Hilfe",               IDM_HELP,       MIS_HELP
+    MENUITEM                "~Produktinformation",  IDM_ABOUT,      MIS_TEXT
+    }
+
+STRINGTABLE
+    {
+    IDS_NOUSER              "UngÅltiger Ausdruck fÅr ArbeitsoberflÑche" /* Benutzername ungÅltig */
+    IDS_DESKTPNOTFOUND      "ArbeitsoberflÑche nicht gefunden"          /* Benutzer nicht gefunden */
+    IDS_USERDESTROYED       "ArbeitsoberflÑche defekt"                  /* Benutzerdaten inkonsistent */
+    IDS_SHELLNOTFOUND       "Shell nicht gefunden"                      /* Angeforderte Shell nicht gefunden */
+    IDS_REGISTER            "Applikation nicht registriert"             /* Programm nicht registriert */
+    IDS_NOMAINWINDOW        "Fenster konnte nicht angelegt werden"
+    IDS_USERINCOMPL         "Benutzerdaten sind nicht komplett"
+    IDS_PATHTOOLONG         "Name der ArbeitsoberflÑche oder Pfad zu lang"
+    IDS_ERRCREATE           "ArbeitsoberflÑche konnte nicht angelegt werden"
+    IDS_NOTMARRIED          "FÅr die gewÅnschte ArbeitsoberflÑche mu· ein anderes Systemprofil ausgewÑhlt werden."
+    IDS_USERWITHSYSTEMINI   "Benutzer mit privatem Systemprofil kînnen nur vom InitOS2-Programm gestartet werden!"
+    IDS_NODESKINRC          "RC-Datei nicht verwendbar!"
+
+    IDS_WRONGPASSWORD       "falsches Kennwort eingegeben!"
+    IDS_USERNOTFOUND        "Benutzer nicht gefunden!"
+    IDS_DIFFERENTPWDS       "Kennwîrter stimmen nicht Åberein!"
+
+    IDS_HELPWINDOWTITLE     "WPSac"
+    IDS_HELPLIBRARYNAME     "SAMMY.HLP"
+
+    IDS_USERPREPARE         "Benutzerprofil wird erstellt, bitte warten . . ."
+    IDS_USERLOGON           "Logon lÑuft, bitte warten . . ."
+    IDS_USERLOGOFF          "Logoff lÑuft, bitte warten . . ."
+    IDS_PRELOGON            "Kontakt zum Server wird hergestellt, bitte warten . . ."
+
+    IDS_NOINIDATABASE       "INI-Datei kann nicht geîffnet werden"
+
+    IDS_ERRUNCPATH          "UngÅltiger Netzwerkpfad - in UPROFILE korrigieren!"
+    IDS_ERRUNCDRIVEWRITE    "Fehler beim Schreiben auf Netzwerkpfad"
+    IDS_ERRUNCDRIVEREAD     "Fehler beim Lesen vom Netzwerkpfad"
+    IDS_ERRWRITELANPROFILE  "Fehler beim Schreiben der énderungen von Verwaltungsdaten aufgetreten; bitte den Administrator benachrichtigen"
+
+    IDS_INVDOMAIN           "DomÑnen-Controller nicht gefunden"
+    IDS_INVPATH             "Netzwerk-Pfad nicht gefunden"
+    IDS_NOPRELOGUSER        "Keine Benutzer-ID fÅr WPSac-Verwaltungsdaten auf LAN-Server angegeben"
+    IDS_LOGON               "Fehler beim Logon beim DomÑnen-Controller"
+    IDS_LOGOFF              "Fehler beim Abmelden am DomÑnencontroller"
+    IDS_NODLL               "LSPrelog-DLL nicht gefunden oder fehlerhaft"
+
+    IDS_LOGONTITLE          "OS/2 System-Anmeldung"
+
+    IDS_DTPATHCHANGED       "Das Verzeichnis der ArbeitsoberflÑchen hat sich (irrtÅmlich?) geÑndert! Bei Problemen den Administrator benachrichtigen"
+
+    IDS_DEFAULTUSER         "BENUTZER"
+    IDS_DEFAULTPASSWORD     "Kennwort"
+
+    IDS_DEMOVERSION         "Dies ist eine Demoversion. Bitte denken Sie 10 Sekunden darÅber nach, ob Sie das Produkt kaufen wollen..."
+    IDS_DEMOTITLE           "Demo"
+    }
+
+

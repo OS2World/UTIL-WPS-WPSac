@@ -1,0 +1,12 @@
+WPSac - Workplace Shell Access Control ist ein Produkt,
+das in den Lage ist, den Zugriff auf die Workplace Shell
+auf Benutzer einzuschr„nken, die eine konfigurierte
+Benutzer-ID besitzen (vergleichbar mit dem WinNT Logon).
+Auáerdem versetzt es den Administrator in die Lage, den
+Zugriff auf Objekte der Workplace Shell einzuschr„nken.
+Benutzer k”nnen eine eigene Workplace Shell besitzen oder
+diese mit anderen teilen. Auáerdem verfgt das Produkt
+ber das "Single signon feature", mit dem es m”glich ist,
+sich zus„tzlich in andere Tools oder das LAN einzuloggen.
+
+

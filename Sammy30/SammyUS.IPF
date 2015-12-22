@@ -1,0 +1,74 @@
+.*----------------------------------------------------------
+.* Sammy -- Workplace Shell Administration
+.*
+.* IPF Help File
+.*
+.*----------------------------------------------------------
+
+:userdoc. 
+
+.*----------------------------------------------------------
+.*  Einloggen
+.*      res = PANEL_LOGIN
+.*----------------------------------------------------------
+:h1 res=1000 id=idSam.LOGIN
+
+:p.Start a session by entering a valid password and name.
+If a magnetic card reader is attached to your computer, that is compatible to
+IBM's standard interface (MAGCALLS.DLL), you may also use an identification card.
+
+:p.If logon is successful, the system will start your associated workplace shell
+and also attach you to your LAN-ids, if configured.
+
+
+:h1 res=1002 id=idOpt.Options
+:p.This button opens the options menu.
+
+:h1 res=1003 id=idSD.Shutdown
+:p.Performs a shutdown of your computer
+
+:h1 res=1004 id=idPwd.Change password
+:p.Opens a dialog that enables you to change user passwords.
+
+:h1 res=1010 id=idEdit.Change password
+:p.In this dialog box the password of single users may be changed.
+Therefore you have to know the actual password of the user.
+
+:h1 res=1011 id=idUser.Username
+:p.Enter the name of the user name here.
+
+:h1 res=1012 id=idOldPwd.Old password
+:p.Enter the actual password of the user here.
+If the user didn't need any up to now, leave this line empty.
+
+:p.The password will not be shown.
+
+:h1 res=1013 id=idPassword.New password
+:p.Enter the new password here.                                 
+If you want to erase the password, leave this line empty.       
+                                                                
+:p.The password will not be shown.                              
+
+:h1 res=1014 id=idVerify.Check new password
+:p.Please reenter the password to verify it.  
+                                              
+:p.The password will not be shown.            
+                                              
+
+:h1 res=1005 id=idView.Setup view
+:p.Here the background color and bitmap for the logon window may be selected.     
+:p.You may select any OS/2 or Windows bitmap file as well as OS/2 bitmap          
+array files.                                                                      
+
+:h1 res=1015 id=idValue.Color selection
+:p.This value set shows you the possible background colors.         
+
+:h1 res=1016 id=idPath.Background image selection
+:p.Into this entry field you may enter the path and file name of the background             
+bitmap file.                                                                                
+
+:h1 res=1017 id=idSearch.Search background bitmap
+:p.The search dialog for the background image will be opened, if you press this button.
+
+:euserdoc.
+

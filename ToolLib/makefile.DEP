@@ -1,0 +1,16 @@
+
+all: \
+    .\SamUtil.lib
+
+.\ShareMem.obj: \
+    .\ShareMem.cpp \
+    {..;..\include;$(INCLUDE);}ShareMem.hpp \
+    {..;..\include;$(INCLUDE);}SamGlob.h
+
+.\Profile.obj: \
+    .\Profile.cpp \
+    {..;..\include;$(INCLUDE);}Profile.hpp \
+    {..;..\include;$(INCLUDE);}MagPro2.h
+
+
+

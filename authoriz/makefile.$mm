@@ -1,0 +1,26 @@
+:TARGET.SUFFIXES
+:DEPENDENCY..C .obj 
+:TARGET.all
+:DEPENDENCY.
+.\authoriz.dll
+:RULE..C.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe /Ti /C %s
+:TARGET..\authoriz.dll
+:DEPENDENCY.
+.\AUTHORIZ.obj
+makefile
+:ACTION.Link::Linker
+:COMMAND.
+icc.exe @<<
+ /B" /de"
+ /Feauthoriz.dll 
+ .\AUTHORIZ.obj
+<<
+:TARGET..\AUTHORIZ.obj
+:DEPENDENCY.
+D:\work\ibmc\wp_parse\dll\AUTHORIZ.C
+..\WP_Parse.h
+{D:\work\ibmc\wp_parse\dll;$(INCLUDE);}NB_BTB.h
+makefile

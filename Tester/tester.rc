@@ -1,0 +1,7 @@
+#include <OS2.H>
+
+#include "tester.h"
+
+ICON       IDD_MAIN          tester.ico
+ICON       IDD_RXOUT         Rxout.ico
+

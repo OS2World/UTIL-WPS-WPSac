@@ -1,0 +1,25 @@
+
+.\WPSac$(PLANG).res: \
+    d:\work\c\wpsac\som2\WPSac$(PLANG).rc \
+    {d:\work\c\wpsac\som2;$(INCLUDE)}wpsac$(PLANG).dlg \
+    {d:\work\c\wpsac\som2;$(INCLUDE)}WPSacDlg.h \
+    {d:\work\c\wpsac\som2;$(INCLUDE)}WPSac.ico
+
+.\wpsac.c: \
+    d:\work\c\wpsac\som2\wpsac.idl
+
+.\DEBUG.obj: \
+    d:\work\c\wpsac\som2\DEBUG.C \
+    {d:\work\c\wpsac\som2;..;.;..\include;$(INCLUDE);}WPSac.ih \
+    {d:\work\c\wpsac\som2;..;.;..\include;$(INCLUDE);}WPSacDlg.h \
+    {d:\work\c\wpsac\som2;..;.;..\include;$(INCLUDE);}debug.h
+
+.\wpsac.obj: \
+    .\wpsac.c \
+    {D:\work\c\wpsac\som2;..;.;..\include;$(INCLUDE);}WPSac.ih \
+    {D:\work\c\wpsac\som2;..;.;..\include;$(INCLUDE);}samglob.h \
+    {D:\work\c\wpsac\som2;..;.;..\include;$(INCLUDE);}WPSacDlg.h \
+    {D:\work\c\wpsac\som2;..;.;..\include;$(INCLUDE);}authoriz.h
+
+.\PRINTF.obj: \
+    d:\work\c\wpsac\som2\PRINTF.C

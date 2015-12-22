@@ -1,0 +1,34 @@
+:TARGET.SUFFIXES
+:TARGET.SUFFIXES
+:DEPENDENCY..cpp .obj 
+:TARGET.all
+:DEPENDENCY.
+.\encrypt.exe
+:RULE..cpp.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe $(CDB) /I..\include /I..\ToolLib /Q /Ti /G5 /C %s
+:RULE.{d:\work\c\wpsac\cryptpasswd}.cpp.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe $(CDB) /I..\include /I..\ToolLib /Q /Ti /G5 /C %s
+:TARGET..\encrypt.exe
+:DEPENDENCY.
+.\main.obj
+..\ToolLib\SamUtil.lib
+{$(LIB)}cutil.lib
+:ACTION.Link::Linker
+:COMMAND.
+icc.exe @<<
+ /B" /de"
+ /Feencrypt.exe 
+ ..\ToolLib\SamUtil.lib 
+ cutil.lib 
+ .\main.obj
+<<
+:TARGET..\main.obj
+:DEPENDENCY.
+d:\work\c\wpsac\cryptpasswd\main.cpp
+{d:\work\c\wpsac\cryptpasswd;..\include;..\ToolLib;$(INCLUDE);}samglob.h
+{d:\work\c\wpsac\cryptpasswd;..\include;..\ToolLib;$(INCLUDE);}magpro2.h
+{d:\work\c\wpsac\cryptpasswd;..\include;..\ToolLib;$(INCLUDE);}Profile.hpp

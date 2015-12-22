@@ -1,0 +1,42 @@
+-- ChangeWPS ---
+   (Ausfhren von PrfReset() )
+   UserProfile =   Argument
+                   Argument==0: ShareMem->pszRootUserIni
+                   ShareMem==0: Environment: USERINI
+
+   SystemProfile = pShareMem->pszRootSystemIni
+                   ShareMem==0: Environment: SYSTEMINI
+
+   Argument != SystemProfile => ERROR
+
+   marry (SystemIni, UserIni) == FALSE => ERROR
+
+   Umschaltvorgang: WinSetObjectData (<WP_DESKTOP>, WORKAREA=YES|NO)
+                    WinSendMsg (HWND_DESKTOP, WM_CLOSE)
+                    - Warten auf hevPrfResetLock -
+                    Replace von <WP_DESKTOP> durch WPSac
+                    PrfReset
+
+--- marry ---
+   Wenn EA EAT_MARRY nicht existiert => Schreiben
+       (Kompatibilit„t mit alten WPSam-Versionen)
+
+   Vergleichen von EA EAT_MARRY in UserIni und SystemIni
+   Ungleich => WinPostMsg (hwnd, WM_MESSAGEBOX, IDS_NOTMARRIED, MPVOID)
+
+
+
+
+Shared memory-Bereich
+=====================
+
+******************************
+**** NEUE IMPLEMENTIERUNG ****
+******************************
+Unterscheidung ob WPSam oder WPSamF: Anhand der SystemIni-Datei (irgend ein noch zu definierender Eintrag)
+Umschaltung durch WPSam (globaler Benutzer): Broadcast oder Post von WM_PRFRESET
+                        (privater Benutzer): Broadcast oder Post von WM_PRFRESET
+Logout durch WPSac:                          Broadcast oder Post von WM_LOGOFF
+
+
+

@@ -1,0 +1,41 @@
+# IBM Developer's Workframe/2 Make File Creation run at 10:58:59 on 10/23/94
+
+# Make File Creation run in directory:
+#   D:\WORK\IBMC\WP_PARSE;
+
+.SUFFIXES:
+
+.SUFFIXES: .c .cpp .cxx .l .y
+
+WP_PARSE.EXE:  \
+  y.tab.OBJ \
+  lexyy.OBJ \
+  libflex.lib \
+  wp_parse.OBJ \
+  MAKEFILE
+   ICC.EXE @<<
+ /B" /de /nologo"
+ /Fe"WP_PARSE.EXE" DDE4CC.LIB 
+y.tab.OBJ
+lexyy.OBJ 
+libflex.lib 
+wp_parse.OBJ 
+<<
+
+{.}.c.obj:
+   ICC.EXE /Ss /Q /Ti /G4 /C   .\$*.c
+
+{.}.cpp.obj:
+   ICC.EXE /Ss /Q /Ti /G4 /C   .\$*.cpp
+
+{.}.cxx.obj:
+   ICC.EXE /Ss /Q /Ti /G4 /C   .\$*.cxx
+
+lexyy.c: lexpars.l MAKEFILE
+   FLEX -l lexpars.l
+
+y.tab.c: parser.y MAKEFILE
+   YACC -d parser.y
+
+!include MAKEFILE.DEP
+

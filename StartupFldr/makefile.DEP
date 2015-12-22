@@ -1,0 +1,22 @@
+
+.\WPStrtup.res: \
+    d:\work\c\WPSac\StartupFldr\WPStrtup.rc \
+    {d:\work\c\WPSac\StartupFldr;$(INCLUDE)}wpstrtup.dlg \
+    {d:\work\c\WPSac\StartupFldr;$(INCLUDE)}dlg.h
+
+.\WPStrtUp.c: \
+    d:\work\c\WPSac\StartupFldr\WPStrtUp.idl
+
+.\DEBUG.obj: \
+    d:\work\c\WPSac\StartupFldr\DEBUG.C \
+    {d:\work\c\WPSac\StartupFldr;..;.;..\include;$(INCLUDE);}wpstrtup.ih \
+    {d:\work\c\WPSac\StartupFldr;..;.;..\include;$(INCLUDE);}dlg.h \
+    {d:\work\c\WPSac\StartupFldr;..;.;..\include;$(INCLUDE);}debug.h
+
+.\WPStrtUp.obj: \
+    .\WPStrtUp.c \
+    {d:\work\c\WPSac\StartupFldr;..;.;..\include;$(INCLUDE);}wpstrtup.ih \
+    {d:\work\c\WPSac\StartupFldr;..;.;..\include;$(INCLUDE);}dlg.h
+
+.\PRINTF.obj: \
+    d:\work\c\WPSac\StartupFldr\PRINTF.C

@@ -1,0 +1,5 @@
+WPSac contains software for the administration and protection of the OS/2 workplace shell.
+
+The following pages will guide you through the installation of WPSac. The READ.ME file on the installation disk contains additional information.
+
+

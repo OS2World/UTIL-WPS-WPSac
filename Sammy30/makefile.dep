@@ -1,0 +1,195 @@
+
+all: \
+    .\sammy.exe
+
+.\Sammy$(PLANG).res: \
+    d:\work\c\wpsac\sammy30\Sammy$(PLANG).rc \
+    d:\work\c\wpsac\sammy30\Sammy.rc \
+    {d:\work\c\wpsac\sammy30;$(INCLUDE)}Sammy$(PLANG).dlg \
+    {d:\work\c\wpsac\sammy30;$(INCLUDE)}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;$(INCLUDE)}Rxout.ico \
+    {d:\work\c\wpsac\sammy30;$(INCLUDE)}Sammy.ico \
+    {d:\work\c\wpsac\sammy30;$(INCLUDE)}SammyPan.h
+
+.\SamData.obj: \
+    d:\work\c\wpsac\sammy30\SamData.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h
+
+.\Environ.obj: \
+    d:\work\c\wpsac\sammy30\Environ.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h
+
+.\SacAlias.obj: \
+    d:\work\c\wpsac\sammy30\SacAlias.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SacAlias.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamData.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamMem.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}prepare.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h
+
+.\rxout.obj: \
+    d:\work\c\wpsac\sammy30\rxout.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}rxout.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamMem.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamData.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamGlob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h
+
+.\profile.obj: \
+    d:\work\c\wpsac\sammy30\profile.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamMem.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamData.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h
+
+.\Prepare.obj: \
+    d:\work\c\wpsac\sammy30\Prepare.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamData.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SacAlias.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}prepare.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h
+
+.\optsdlg.obj: \
+    d:\work\c\wpsac\sammy30\optsdlg.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}optsdlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamGlob.h
+
+.\SamMem.obj: \
+    d:\work\c\wpsac\sammy30\SamMem.c \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}SamGlob.h \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}SamData.h \
+
+.\loginout.obj: \
+    d:\work\c\wpsac\sammy30\loginout.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamMem.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h
+
+.\LANDrive.obj: \
+    d:\work\c\wpsac\sammy30\LANDrive.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamData.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}LSPrelog.h
+
+.\CreatePwd.obj: \
+    d:\work\c\wpsac\sammy30\CreatePwd.c
+
+.\createObj.obj: \
+    d:\work\c\wpsac\sammy30\createObj.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h
+
+.\ChangePwd.obj: \
+    d:\work\c\wpsac\sammy30\ChangePwd.c \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}ChangePwd.h \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}SacAlias.h \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}SamGlob.h \
+    {d:\work\c\wpsac\sammy30;..\include;..;$(INCLUDE);}SamData.h
+
+.\Authorize.obj: \
+    d:\work\c\wpsac\sammy30\Authorize.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}MagPro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamGlob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Authorize.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Authoriz.h
+
+.\SCenter.obj: \
+    d:\work\c\wpsac\sammy30\SCenter.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SCenter.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}LANDrive.h
+
+.\MAKEINI.obj: \
+    d:\work\c\wpsac\MAKEINI.C \
+    {d:\work\c\wpsac;..;..\include;$(INCLUDE);}samglob.h \
+    {d:\work\c\wpsac;..;..\include;$(INCLUDE);}debug.h
+
+.\MAGSUPP.obj: \
+    d:\work\c\wpsac\MAGSUPP.C
+
+.\sammy.obj: \
+    .\sammy.c \
+    ..\authoriz.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Authorize.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}LANDrive.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}LogInOut.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}ChangePwd.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamMem.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyPan.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SacAlias.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamData.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}prepare.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}cutil.h
+
+.\bitmap.obj: \
+    d:\work\c\wpsac\sammy30\bitmap.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}bitmap.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamMem.h
+
+
+.\SamDlg.obj: \
+    d:\work\c\wpsac\sammy30\SamDlg.c \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}magpro2.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Authorize.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}bitmap.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}LogInOut.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}LANDrive.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}ChangePwd.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}debug.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}profile.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}prepare.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}optsdlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SacAlias.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamData.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SamDlg.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SCenter.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}Sammy.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyPan.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}samglob.h \
+    {d:\work\c\wpsac\sammy30;..;..\include;$(INCLUDE);}SammyDlg.h
+
+Sammy$(PLANG).IPF: Sammy$(PLANG).SCR \
+   SammyDlg.h  \
+   SammyPan.h  \
+   MAKEFILE
+

@@ -1,0 +1,249 @@
+Start Component
+    Name = "WPSac"
+    Description = "Workplace shell administration"
+
+
+//
+//   Enumerations for this group
+//
+           Start Enum
+             Name = "Verify_Type"
+             Type = Integer
+             0x00 = "An error occurred; check status code"
+             0x01 = "This component does not exist"
+             0x02 = "The verify is not supported"
+             0x03 = "Reserved"
+             0x04 = "This component exists, but the functionality is untested"
+             0x05 = "This component exists, but the functionality is unknown"
+             0x06 = "This component exists, and is not functioning correctly"
+             0x07 = "This component exists, and is functioning correctly"
+           End Enum
+
+
+    start group
+        name    = "ComponentID"
+        id      = 1
+        class   = "DMTF|ComponentID|1.0"
+        description = "This group defines attributes common to all components."
+                      "This group is required."
+
+        start attribute
+            name    = "Manufacturer"
+            id      = 1
+            description = "The name of the manufacturer that produces this component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "noller & breining software"
+        end attribute
+
+        start attribute
+            name    = "Product"
+            id      = 2
+            description = "The name of the component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "WPSac"
+        end attribute
+
+        start attribute
+            name    = "Version"
+            id      = 3
+            description = "The version for the component."
+            access  = READ-ONLY
+            storage = COMMON
+            type    = STRING(64)
+            value   = "4.00.00"
+        end attribute
+
+        start attribute
+            name    = "Serial Number"
+            id      = 4
+            description = "The serial number for this instance of this component."
+            access  = READ-ONLY
+            storage = SPECIFIC
+            type    = STRING(64)
+            value   = unsupported
+        end attribute
+
+        start attribute
+            name    = "Installation"
+            id      = 5
+            description = "The time and date of the last install of this component."
+            access  = READ-ONLY
+            storage = SPECIFIC
+            type    = DATE
+            value   = ""
+        end attribute
+
+        Start Attribute
+            Name = "Verify"
+            Id = 6
+            Access = Read-Only
+            Storage = Specific
+            Type = "Verify_Type"
+            Description = "A code that provides a level of verification "
+                          "that the component is still installed and working."
+            Value = 0x02
+        End Attribute
+
+     end group
+
+
+  START GROUP
+       Name = "Software Component Information"
+       Class = "DMTF|Software Component Information|001"
+       ID = 2
+       Description = "This group contains additional identifying information"
+                     " about this software component."
+
+    START ATTRIBUTE
+       Name = "Major Version"
+       ID = 1
+       Description = "Major version of this software component"
+       Access = Read-Only
+       Storage = Common
+       Type = String(32)
+       Value = "4"
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Minor Version"
+       ID = 2
+       Description = "Minor version of this software component"
+       Access = Read-Only
+       Storage = Common
+       Type = String(32)
+       Value = "0"
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Revision"
+       ID = 3
+       Description = "Revision of this software component"
+       Access = Read-Only
+       Storage = Common
+       Type = String(32)
+       Value = "0"
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Build"
+       ID = 4
+       Description = "Manufacturer's internal identifier for this"
+                     "compilation"
+       Access = Read-Only
+       Storage = Specific
+       Type = String(32)
+       Value = unsupported
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Target Operating System"
+       ID = 5
+       Description = "The operationg system for which this"
+                     "software component is intended"
+       Access = Read-Only
+       Storage = Common
+       Type = Start Enum
+              0 = "Other"
+              1 = "DOS"
+              2 = "MACOS"
+              3 = "OS2"
+              4 = "UNIX"
+              5 = "WIN16"
+              6 = "WIN32"
+              7 = "OPENVMS"
+              8 = "NetWare"
+       End Enum
+       Value = 3
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Language Edition"
+       ID = 6
+       Description = "This identifies the language edition of this"
+                     "component"
+       Access = Read-Only
+       Storage = Common
+       Type = String(32)
+       Value = "german"
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Identification code"
+       ID = 7
+       Description = "Stock Keeping Unit (SKU) or Part Number"
+                     "for this software component"
+       Access = Read-Only
+       Storage = Specific
+       Type = String(32)
+       Value = unsupported
+    END ATTRIBUTE
+
+  END GROUP
+
+  START GROUP
+       Name = "Software Location"
+       Class = "DMTF|Software Location|001"
+       Description = "This group identifies the various "
+                     "locations where parts of a software "
+                     "product have been installed"
+       Key = 1, 2
+
+    START ATTRIBUTE
+       Name = "Index"
+       ID = 1
+       Description = "Index of this location entity"
+       Access = Read-Only
+       Storage = Common
+       Type = Integer
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Type"
+       ID = 2
+       Description = "The type of this location entity"
+       Access = Read-Only
+       Storage = Common
+       Type = Start Enum
+              0 = "Unknown"
+              1 = "Other"
+              2 = "Product directory"
+              3 = "Product executables directory"
+              4 = "Product library directory"
+              5 = "Product configuration directory"
+              6 = "Product working directory"
+              7 = "Shared base directory"
+              8 = "Shared executables directory"
+              9 = "Shared library directory"
+              10 = "System configuration directory"
+              11 = "System base directory"
+              12 = "System executables directory"
+              13 = "System library directory"
+       End Enum
+    END ATTRIBUTE
+
+    START ATTRIBUTE
+       Name = "Path"
+       ID = 3
+       Description = "The path to this location"
+       Access = Read-Write
+       Storage = Common
+       Type = String(256)
+    END ATTRIBUTE
+
+ END GROUP
+
+ START TABLE
+    Name = "Software Location"
+    Class = "DMTF|Software Location|001"
+    ID = 4
+    {1, 2, "%EPFIFILEDIR%"}
+    {2, 3, "%EPFIFILEDIR%\\BIN"}
+    {3, 4, "%EPFIFILEDIR%\\DLL"}
+ END TABLE
+
+end component
+

@@ -1,0 +1,134 @@
+#ifndef OS2_INCLUDED
+   #include <os2.h>
+#endif
+DLGINCLUDE 1 "D:\work\c\wpsac\Sammy30\SammyDlg.h"
+
+DLGTEMPLATE IDD_EDIT LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Kennwort Ñndern", IDD_EDIT, 27, 20, 190, 150, WS_VISIBLE,
+            FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "", -1, 10, 28, 170, 49
+        LTEXT           "User", -1, 10, 119, 100, 8, NOT WS_GROUP
+        ENTRYFIELD      "", DID_EDIT_USER, 12, 109, 166, 8, ES_MARGIN |
+                        WS_GROUP
+        LTEXT           "aktuelles Kennwort", -1, 10, 95, 100, 8, NOT
+                        WS_GROUP
+        ENTRYFIELD      "", DID_EDIT_OLDPWD, 12, 85, 166, 8, ES_MARGIN |
+                        ES_AUTOTAB | ES_UNREADABLE
+        LTEXT           "neues Kennwort", -1, 15, 61, 100, 8, DT_BOTTOM |
+                        NOT WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "", DID_EDIT_PASSWORD, 17, 52, 156, 6, ES_MARGIN |
+                        ES_UNREADABLE | WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        ENTRYFIELD      "", DID_EDIT_VERIFICATION, 17, 33, 156, 6, ES_MARGIN |
+                        ES_UNREADABLE
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        DEFPUSHBUTTON   "~Ok", DID_OK, 10, 7, 50, 14, WS_GROUP
+        PUSHBUTTON      "~Hilfe", DID_HELP, 130, 7, 50, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+        PUSHBUTTON      "~Abbruch", DID_CANCEL, 70, 7, 50, 14, NOT
+                        WS_TABSTOP
+        LTEXT           "öberprÅfung", -1, 15, 42, 100, 8, DT_BOTTOM | NOT
+                        WS_GROUP
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        CTEXT           "Ihr Pa·wort ist abgelaufen, bitte ein neues eingebe"
+                        "n!", DID_TXT_PWDEXPIRED, 9, 129, 171, 18,
+                        DT_WORDBREAK | NOT WS_GROUP | NOT WS_VISIBLE
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00C80000L
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00DCDCDCL
+    END
+END
+
+DLGTEMPLATE IDD_ABOUTBOX LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Produktinformation", IDD_ABOUTBOX, 0, 0, 200, 130,
+            FS_NOBYTEALIGN | FS_MOUSEALIGN | WS_VISIBLE, FCF_SYSMENU |
+            FCF_TITLEBAR
+    BEGIN
+        CONTROL         "", -1, 38, 36, 130, 50, WC_STATIC, SS_FGNDRECT |
+                        WS_VISIBLE
+        CONTROL         "", -1, 35, 39, 130, 50, WC_STATIC, SS_FGNDRECT |
+                        WS_VISIBLE
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00E3E396L
+        CONTROL         "", -1, 35, 39, 130, 50, WC_STATIC, SS_FGNDFRAME |
+                        WS_VISIBLE
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00800000L
+                        PRESPARAMS PP_BORDERCOLOR, 0x00800000L
+        ICON            DID_ICON, -1, 90, 100, 20, 16
+        CTEXT           "Sammy", -1, 36, 74, 128, 8, DT_VCENTER | NOT
+                        WS_GROUP
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00E3E396L
+        CTEXT           "Logon-Shell fÅr", -1, 36, 64, 128, 8, DT_VCENTER |
+                        NOT WS_GROUP
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00E3E396L
+        CTEXT           "WPSac", -1, 36, 54, 128, 8, DT_VCENTER | NOT
+                        WS_GROUP
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00E3E396L
+        CTEXT           "Version 4.0", -1, 36, 42, 128, 8, DT_VCENTER
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00646464L
+                        PRESPARAMS PP_BACKGROUNDCOLOR, 0x00E3E396L
+        CTEXT           "Copyright (C) noller & breining software, 1995 ... "
+                        "1999", -1, 3, 29, 194, 8, DT_VCENTER | NOT WS_GROUP
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00808080L
+                        PRESPARAMS PP_FONTNAMESIZE, "8.Helv"
+        DEFPUSHBUTTON   "Ok", DID_OK, 80, 10, 40, 13
+    END
+END
+
+DLGTEMPLATE IDD_VIEW LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Aussehen", IDD_VIEW, 12, 43, 205, 95, WS_VISIBLE, FCF_SYSMENU |
+            FCF_TITLEBAR
+    BEGIN
+        GROUPBOX        "Hintergrundfarbe", -1, 5, 48, 195, 42, NOT WS_GROUP |
+                        WS_TABSTOP
+        VALUESET        DID_VALUE_COLOR, 10, 51, 185, 31, VS_COLORINDEX |
+                        VS_BORDER | VS_ITEMBORDER | WS_GROUP | NOT
+                        WS_TABSTOP
+                        CTLDATA 8, 0, 2, 8
+        GROUPBOX        "Hintergrundbild", 101, 5, 23, 195, 22
+        ENTRYFIELD      "", DID_ENTER_FILE, 9, 28, 141, 8, ES_MARGIN |
+                        WS_GROUP
+        PUSHBUTTON      "Suchen...", DID_SEARCH_FILE, 153, 25, 45, 14,
+                        WS_GROUP
+        DEFPUSHBUTTON   "~Ok", DID_OK, 5, 4, 45, 14, WS_GROUP
+        PUSHBUTTON      "~Abbruch", DID_CANCEL, 80, 4, 45, 14
+        PUSHBUTTON      "~Hilfe", DID_HELP, 155, 4, 45, 14, BS_HELP |
+                        BS_NOPOINTERFOCUS
+    END
+END
+
+DLGTEMPLATE IDD_LOGIN LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Anmelden", IDD_LOGIN, 0, 0, 210, 155, FS_NOBYTEALIGN | NOT
+            FS_DLGBORDER | WS_VISIBLE, FCF_NOBYTEALIGN
+    BEGIN
+        LTEXT           "Benutzername:", DID_LOGIN_TEXT_USER, 10, 87, 100, 8,
+                        NOT WS_VISIBLE
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        CONTROL         "", DID_LOGIN_USER, 10, 13, 190, 73, WC_COMBOBOX,
+                        CBS_DROPDOWN | WS_TABSTOP | WS_VISIBLE
+        LTEXT           "Kennwort:", DID_LOGIN_TEXT_PASSWORD, 10, 61, 100, 8,
+                        NOT WS_VISIBLE
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        ENTRYFIELD      "", DID_LOGIN_PASSWORD, 12, 51, 186, 8, ES_MARGIN |
+                        ES_UNREADABLE
+        LTEXT           "", DID_LOGIN_TEXTIDCARD, 10, 31, 190, 8, NOT
+                        WS_VISIBLE
+                        PRESPARAMS PP_FOREGROUNDCOLOR, 0x00FFFFFFL
+        DEFPUSHBUTTON   "~Ok", DID_OK, 10, 5, 60, 14
+        PUSHBUTTON      "O~ptionen...", DID_OPTION, 140, 5, 60, 14,
+                        BS_NOPOINTERFOCUS | NOT WS_TABSTOP
+    END
+END
+
+DLGTEMPLATE IDD_TIMEDMSG LOADONCALL MOVEABLE DISCARDABLE
+BEGIN
+    DIALOG  "Timed Message", IDD_TIMEDMSG, 131, 85, 200, 51, FS_SCREENALIGN |
+            WS_VISIBLE
+    BEGIN
+        CTEXT           "", DID_TEXT, 10, 11, 180, 30, DT_WORDBREAK
+    END
+END

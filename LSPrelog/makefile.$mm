@@ -1,0 +1,41 @@
+:TARGET.SUFFIXES
+:TARGET.SUFFIXES
+:DEPENDENCY..c .obj 
+:TARGET.all
+:DEPENDENCY.
+.\LSPrelog.dll
+:RULE..c.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe $(CDB) /I..\include /DPURE_32 /Ss /Wdcleffextparprorearetuse /Ti /Gm /Ge- /G5 /C %s
+:RULE.{d:\work\c\wpsac\LSPrelog}.c.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe $(CDB) /I..\include /DPURE_32 /Ss /Wdcleffextparprorearetuse /Ti /Gm /Ge- /G5 /C %s
+:TARGET..\LSPrelog.dll
+:DEPENDENCY.
+.\LSPrelog.obj
+.\PRINTF.obj
+{$(LIB)}UPM32.LIB
+{$(LIB)}NETAPI32.LIB
+{$(LIB)}LSPrelog.def
+:ACTION.Link::Linker
+:COMMAND.
+icc.exe @<<
+ /Q /B" /de     "
+ /FeLSPrelog.dll 
+ UPM32.LIB 
+ NETAPI32.LIB 
+ LSPrelog.def
+ .\LSPrelog.obj
+ .\PRINTF.obj
+<<
+:TARGET..\LSPrelog.obj
+:DEPENDENCY.
+d:\work\c\wpsac\LSPrelog\LSPrelog.c
+{d:\work\c\wpsac\LSPrelog;..\include;$(INCLUDE);}LSPrelog.h
+{d:\work\c\wpsac\LSPrelog;..\include;$(INCLUDE);}magpro2.h
+{d:\work\c\wpsac\LSPrelog;..\include;$(INCLUDE);}debug.h
+:TARGET..\PRINTF.obj
+:DEPENDENCY.
+d:\work\c\wpsac\LSPrelog\PRINTF.C
